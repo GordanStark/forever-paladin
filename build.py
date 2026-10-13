@@ -59,7 +59,7 @@ for lv in range(1, 61):
     else:
         tal = ""
     lis = "".join(f'<li>{E(x)}</li>' for x in items)
-    summ = TAL[lv][0] if lv in TAL else (items[0][:48] + ("…" if items and len(items[0])>48 else "") if items else "Quest on")
+    summ = TAL[lv][0] if lv in TAL else (items[0][:48] + ("…" if items and len(items[0])>48 else "") if items else (f"Trainer: {len(TR[lv])} new" if lv in TR else "No new spells"))
     rows.append(f'''<div class="row" data-lv="{lv}" id="lv{lv}">
  <div class="row-head"><button class="chk" aria-label="Mark level {lv} done" data-k="lv{lv}"></button>
   <span class="lv">{lv}</span><span class="sum">{'<span class="tb">Trainer</span> ' if lv in TR else ''}{E(summ)}</span><span class="zone">{E(zone(lv))}</span></div>
