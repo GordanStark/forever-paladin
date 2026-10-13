@@ -48,3 +48,9 @@ if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js');
 (()=>{const q=new URLSearchParams(location.search);if(q.get('lv'))setLv(+q.get('lv'));if(q.get('rot'))$('#rotBtn').click()})();
 
 setTimeout(()=>{if(!location.search.includes('noscroll')&&(location.hash||'#guide')==='#guide'){const r=$('.row.cur');if(r)window.scrollTo(0,r.offsetTop-$('.bar').offsetHeight-8)}},50);
+const SH={'Hammer of Justice':'Hammer of Justice','Blessing of Protection':'Bless. of Protect','Divine Protection':'Divine Protect','Seal of the Crusader':'Seal of Crusader','Seal of Righteousness':'Seal of Right.','Seal of Command':'Seal of Command','Judgement':'Judge-ment','Consecration':'Consec-ration','Exorcism':'Exor-cism','Flash of Light':'Flash of Light','Blessing of Might':'Bless. of Might','Blessing of Kings':'Bless. of Kings','Redemption':'Redemp-tion','Hearthstone':'Hearth-stone','Blessing of Freedom':'Bless. of Freedom','Hammer of Wrath':'Hammer of Wrath','Divine Shield':'Divine Shield'};
+function renderBars(l){const b=window.BARS[l],p=window.BARS[l-1];const lab={top:['Top','click · combat cooldowns'],mid:['Middle','keys 1-6 · pressed constantly'],bot:['Bottom','long CDs · out of combat']};
+ $('#barLv').textContent=l;
+ $('#barsBox').innerHTML=['top','mid','bot'].map(r=>`<div class="brow"><div class="blab"><b>${lab[r][0]}</b> ${lab[r][1]}</div><div class="bslots">`+b[r].map((s,i)=>{if(!s)return`<div class="bs empty">${r==='mid'?i+1:''}</div>`;
+  const nw=!p||JSON.stringify(p[r][i])!==JSON.stringify(s);return`<div class="bs${nw?' new':''}${s.u?' unc':''}">${r==='mid'?`<i>${i+1}</i>`:''}<span title="${s.n}">${SH[s.n]||s.n}</span>${nw?'<em>NEW</em>':''}</div>`}).join('')+'</div></div>').join('')}
+const _setLv=setLv;setLv=function(l){_setLv(l);renderBars(+sel.value)};renderBars(+sel.value);

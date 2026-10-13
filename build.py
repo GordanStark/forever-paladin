@@ -48,6 +48,43 @@ def trainer_html(lv):
     note = "Beta client data, Lv 1-30 playable in the beta" if lv <= 30 else "Beta client data, not reachable in the beta (cap 30) and may change at launch"
     cls = "" if lv <= 30 else " warn"
     return f'<div class="trn"><b>Trainer</b><ul>{"".join(li)}</ul><span class="src{cls}">{note}. <a href="{TFE}">The Forever Era</a></span></div>'
+LEARN = {}
+for _lv in sorted(TR):
+    for _x in TR[_lv]:
+        if _x["kind"] == "New ability": LEARN.setdefault(_x["name"], _lv)
+ITEM = {"Food": 1, "Water": 1, "Hearthstone": 1}
+# each slot: candidates in order (name, unconfirmed_placement); latest learned wins
+BARS = {
+ "top": [[("Hammer of Justice",0)], [("Blessing of Protection",0)], [("Lay on Hands",0)],
+         [("Divine Protection",0),("Divine Shield",1)], [("Seal of the Crusader",0),("Blessing of Freedom@40",1)],
+         [("Purify",0),("Cleanse",1)]],
+ "mid": [[("Seal of Righteousness",0),("Seal of Command",0)], [("Judgement",0)], [("Holy Strike",0)],
+         [("Consecration",0)], [("Exorcism",0),("Hammer of Wrath",1)], [("Holy Light@1",0),("Flash of Light",0)]],
+ "bot": [[("Food",0)], [("Water",0)], [("Holy Light@20",0)], [("Blessing of Might",0),("Blessing of Kings",0)],
+         [("Redemption",0)], [("Hearthstone",0)]],
+}
+def bars_at(lv):
+    out = {}
+    for r, slots in BARS.items():
+        row = []
+        for cands in slots:
+            pick = None
+            for nm, unc in cands:
+                base, _, at = nm.partition("@")
+                L = int(at) if at else ITEM.get(base, LEARN.get(base, 99))
+                if L <= lv: pick = {"n": base, "u": unc}
+            row.append(pick)
+        out[r] = row
+    return out
+BARDATA = {lv: bars_at(lv) for lv in range(1, 61)}
+def bar_changes(lv):
+    a, b = BARDATA[lv], BARDATA.get(lv-1, {"top":[None]*6,"mid":[None]*6,"bot":[None]*6})
+    ch = []
+    for r, lab in (("top","Top"),("mid","Middle"),("bot","Bottom")):
+        for i in range(6):
+            if a[r][i] != b[r][i] and a[r][i]:
+                ch.append(f'{lab} {i+1 if r=="mid" else i+1}: {a[r][i]["n"]}' + (" (unconfirmed)" if a[r][i]["u"] else ""))
+    return ch
 rows = []
 for lv in range(1, 61):
     items = list(MILESTONE.get(lv, []))
@@ -63,7 +100,7 @@ for lv in range(1, 61):
     rows.append(f'''<div class="row" data-lv="{lv}" id="lv{lv}">
  <div class="row-head"><button class="chk" aria-label="Mark level {lv} done" data-k="lv{lv}"></button>
   <span class="lv">{lv}</span><span class="sum">{'<span class="tb">Trainer</span> ' if lv in TR else ''}{E(summ)}</span><span class="zone">{E(zone(lv))}</span></div>
- <div class="row-body">{trainer_html(lv)}{tal}<ul>{lis}</ul><div class="zline">Zone: {E(zone(lv))} <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+ <div class="row-body">{("<div class=\"barch\"><b>Bars</b> " + " · ".join(E(c) for c in bar_changes(lv)) + "</div>") if bar_changes(lv) else ""}{trainer_html(lv)}{tal}<ul>{lis}</ul><div class="zline">Zone: {E(zone(lv))} <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
 </div>''')
 
 def ck(key, text, sub=""):
@@ -87,7 +124,7 @@ PAGE = f'''<!doctype html><html lang="en"><head><meta charset="utf-8">
   <div class="lvpick"><button id="lvDown" aria-label="Level down">−</button><select id="lvSel" aria-label="Current level"></select><button id="lvUp" aria-label="Level up">+</button></div></div>
  <button id="rotBtn" class="rotbtn" aria-expanded="false">⚔ Rotation <span id="rotTag"></span></button>
  <div id="rot" class="rot" hidden></div>
- <nav class="tabs"><a href="#guide">1-60</a><a href="#ret">Ret</a><a href="#gear">Gear</a><a href="#prof">Profs</a><a href="#prot">Prot</a><a href="#back">Break</a><a href="#me">Me</a></nav>
+ <nav class="tabs"><a href="#guide">1-60</a><a href="#ret">Ret</a><a href="#gear">Gear</a><a href="#prof">Profs</a><a href="#prot">Prot</a><a href="#bars">Bars</a><a href="#back">Break</a><a href="#me">Me</a></nav>
 </header>
 <main>
 <section id="t-guide" class="tab"><h2>Leveling 1-60</h2>
@@ -168,6 +205,11 @@ PAGE = f'''<!doctype html><html lang="en"><head><meta charset="utf-8">
   <p class="src">Source: <a href="{IVP}">Icy Veins Prot</a>. Note that Icy Veins picks Dwarf for Prot (Stoneform), but Human works.</p></div>
 </section>
 
+<section id="t-bars" class="tab"><h2>My Bars · Lv <span id="barLv"></span></h2>
+ <p class="note">Change the level in the top bar. Gold outline = new at this level. Dashed = placement for 31-60 not confirmed.</p>
+ <div id="barsBox"></div>
+ <p class="src">Learn levels from <a href="{TFE}">The Forever Era</a> beta client data. Seal of Command needs the talent (taken at 20 in your plan). Spells after 30 can't be tested in the beta.</p>
+</section>
 <section id="t-back" class="tab"><h2>Back from a break</h2>
  <div class="card big"><h3>30-second rotation</h3><ol>
   <li>Seal up (SoR before 20, SoC with a slow 2H).</li><li>Judgement on CD (keeps your seal).</li><li>Holy Strike on CD.</li><li>Consecration if 3+ mobs.</li><li>Low health: Holy Light. Panic: Divine Protection, then Lay on Hands.</li><li>Buffs: Might/Kings + Ret Aura.</li></ol></div>
@@ -181,6 +223,6 @@ PAGE = f'''<!doctype html><html lang="en"><head><meta charset="utf-8">
 
 <section id="t-me" class="tab"><h2>My Character</h2><div id="meBox">Loading…</div></section>
 </main>
-<script src="app.js"></script></body></html>'''
+<script>window.BARS={json.dumps(BARDATA)};</script><script src="app.js"></script></body></html>'''
 open("index.html", "w").write(PAGE)
 print("built", len(PAGE))
