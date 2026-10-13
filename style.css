@@ -58,3 +58,9 @@ a.sp{color:var(--ink);text-decoration:none;border-bottom:1px dotted var(--gold-d
 .bs em{position:absolute;top:1px;right:2px;bottom:auto;background:var(--gold2);color:#111;border-radius:3px;padding:0 2px;z-index:1}
 .bs.new{border-width:3px}
 .credits p{font-size:12.5px;color:var(--muted)}
+.mini{display:grid;grid-template-columns:repeat(6,22px);gap:2px;margin:2px 0 8px;padding:4px;background:#0a1220;border:1px solid var(--line);border-radius:6px;width:max-content}
+.mini .mb{width:22px;height:22px;border-radius:3px;border:1px solid #2a3a54;overflow:hidden;font-size:7px;display:flex;align-items:center;justify-content:center;background:#1a2c48}
+.mini .mb img{width:100%;height:100%;display:block}.mini .mb.e{background:transparent;border-style:dashed}
+.mini .mb.n{border:2px solid var(--gold2)}.mini .mb.u{border-style:dashed;border-color:var(--warn)}
+.mini .mb:nth-child(6n+1){} .mini .mb:nth-child(n+7):nth-child(-n+12){margin-top:0}
+pre#macroTxt{background:#0a1220;border:1px solid var(--line);border-radius:8px;padding:10px;font-size:14px;white-space:pre-wrap;margin:6px 0}

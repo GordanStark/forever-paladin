@@ -61,13 +61,13 @@ LEARN = {}
 for _lv in sorted(TR):
     for _x in TR[_lv]:
         if _x["kind"] == "New ability": LEARN.setdefault(_x["name"], _lv)
-ITEM = {"Food": 1, "Water": 1, "Hearthstone": 1}
+ITEM = {"Food": 1, "Water": 1, "Hearthstone": 1, "Bow & Buff": 4}
 # each slot: candidates in order (name, unconfirmed_placement); latest learned wins
 BARS = {
  "top": [[("Hammer of Justice",0)], [("Blessing of Protection",0)], [("Lay on Hands",0)],
-         [("Divine Protection",0),("Divine Shield",1)], [("Seal of the Crusader",0),("Blessing of Freedom@40",1)],
+         [("Divine Protection",0),("Divine Shield",1)], [("Bow & Buff",0)],
          [("Purify",0),("Cleanse",1)]],
- "mid": [[("Seal of Righteousness",0),("Seal of Command",0)], [("Judgement",0)], [("Holy Strike",0)],
+ "mid": [[("Seal of Righteousness",0),("Holy Strike",0)], [("Judgement",0)], [("Seal of Righteousness@6",0),("Seal of Command",0)],
          [("Consecration",0)], [("Exorcism",0),("Hammer of Wrath",1)], [("Holy Light@1",0),("Flash of Light",0)]],
  "bot": [[("Food",0)], [("Water",0)], [("Holy Light@20",0)], [("Blessing of Might",0),("Blessing of Kings",0)],
          [("Redemption",0)], [("Hearthstone",0)]],
@@ -94,6 +94,19 @@ def bar_changes(lv):
             if a[r][i] != b[r][i] and a[r][i]:
                 ch.append(f'{lab} {i+1 if r=="mid" else i+1}: {a[r][i]["n"]}' + (" (unconfirmed)" if a[r][i]["u"] else ""))
     return ch
+def icon_of(n):
+    if n == "Bow & Buff": return SPELLS["Blessing of Might"]["i"]
+    v = SPELLS.get(n); return v["i"] if v else None
+def mini_bars(lv):
+    a, b = BARDATA[lv], BARDATA.get(lv-1)
+    h = '<div class="mini">'
+    for r in ("top","mid","bot"):
+        for i, x in enumerate(a[r]):
+            if not x: h += '<span class="mb e"></span>'; continue
+            nw = (b is None) or b[r][i] != x
+            ic = icon_of(x["n"])
+            h += f'<span class="mb{" n" if nw else ""}{" u" if x["u"] else ""}" title="{E(x["n"])}">' + (f'<img src="icons/spells/{ic}.jpg" alt="" loading="lazy">' if ic else E(x["n"][:3])) + '</span>'
+    return h + '</div>'
 rows = []
 for lv in range(1, 61):
     items = list(MILESTONE.get(lv, []))
@@ -109,7 +122,7 @@ for lv in range(1, 61):
     rows.append(f'''<div class="row" data-lv="{lv}" id="lv{lv}">
  <div class="row-head"><button class="chk" aria-label="Mark level {lv} done" data-k="lv{lv}"></button>
   <span class="lv">{lv}</span><span class="sum">{'<span class="tb">Trainer</span> ' if lv in TR else ''}{E(summ)}</span><span class="zone">{E(zone(lv))}</span></div>
- <div class="row-body">{("<div class=\"barch\"><b>Bars</b> " + " · ".join(E(c) for c in bar_changes(lv)) + "</div>") if bar_changes(lv) else ""}{trainer_html(lv)}{tal}<ul>{lis}</ul><div class="zline">{zicon(zone(lv))}Zone: {E(zone(lv))} <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+ <div class="row-body">{mini_bars(lv)}{("<div class=\"barch\"><b>Bars</b> " + " · ".join(E(c) for c in bar_changes(lv)) + "</div>") if bar_changes(lv) else ""}{trainer_html(lv)}{tal}<ul>{lis}</ul><div class="zline">{zicon(zone(lv))}Zone: {E(zone(lv))} <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
 </div>''')
 
 def ck(key, text, sub=""):
@@ -217,6 +230,11 @@ PAGE = f'''<!doctype html><html lang="en"><head><meta charset="utf-8">
 <section id="t-bars" class="tab"><h2>My Bars · Lv <span id="barLv"></span></h2>
  <p class="note">Change the level in the top bar. Gold outline = new at this level. Dashed = placement for 31-60 not confirmed.</p>
  <div id="barsBox"></div>
+ <div class="card"><h3><img class="ic" src="icons/spells/{SPELLS["Blessing of Might"]["i"]}.jpg" alt="">Bow &amp; Buff macro (Top 5, from Lv 4)</h3>
+ <pre id="macroTxt">#showtooltip Blessing of Might
+/cast Blessing of Might
+/bow</pre><button id="copyMacro" class="ghost">Copy macro</button>
+ <p class="src">Make it in-game with /macro, then New. Character macros hold 255 characters, and this one is far under. That limit is from standard WoW and wasn't checked against Forever.</p></div>
  <p class="src">Learn levels from <a href="{TFE}">The Forever Era</a> beta client data. Seal of Command needs the talent (taken at 20 in your plan). Spells after 30 can't be tested in the beta.</p>
 </section>
 <section id="t-back" class="tab"><h2>Back from a break</h2>
@@ -256,7 +274,7 @@ def linkify(doc):
                         if t2 == tag: break
                 elif tag not in VOID and not part.endswith("/>"):
                     t = part.lower()
-                    st.append((tag, tag in ("a","textarea","option","script","button") or 'class="sum"' in t or 'class="row-head"' in t))
+                    st.append((tag, tag in ("a","textarea","option","script","button","pre") or 'class="sum"' in t or 'class="row-head"' in t))
             out.append(part)
         else:
             out.append(part if any(f for _, f in st) else NRX.sub(lambda m: link(m.group(1)), part))
@@ -265,6 +283,6 @@ PAGE = linkify(PAGE)
 open("index.html", "w").write(PAGE)
 icons = sorted({v["i"] for v in SPELLS.values()})
 sw = open("sw.js").read()
-sw = _re.sub(r"const C='pal-v\d+',F=\[[^\]]*\]", "const C='pal-v6',F=" + json.dumps(['./','index.html','style.css','app.js','data.json','manifest.webmanifest','icons/icon-180.png','icons/icon-192.png','icons/icon-512.png'] + [f"icons/spells/{i}.jpg" for i in icons]), sw)
+sw = _re.sub(r"const C='pal-v\d+',F=\[[^\]]*\]", "const C='pal-v7',F=" + json.dumps(['./','index.html','style.css','app.js','data.json','manifest.webmanifest','icons/icon-180.png','icons/icon-192.png','icons/icon-512.png'] + [f"icons/spells/{i}.jpg" for i in icons]), sw)
 open("sw.js","w").write(sw)
 print("built", len(PAGE))
