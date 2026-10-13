@@ -48,7 +48,7 @@ fetch('data.json',{cache:'no-cache'}).then(r=>r.json()).then(d=>{const esc=s=>St
  `<div class="card"><h3>Bags</h3>${tbl(Object.fromEntries(d.bags.map(b=>[b.item,'×'+b.count])))}</div>`+
  `<div class="card"><h3>Mounts</h3>${d.mounts.length?d.mounts.map(esc).join('<br>'):'None yet'}<span class="src">Mount lookup in Forever's addon API not yet confirmed.</span></div>`
 }).catch(()=>{$('#meBox').textContent='No synced data yet.'});
-if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js');
+if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js',{updateViaCache:'none'}).then(r=>r.update());let rl=0;navigator.serviceWorker.addEventListener('controllerchange',()=>{if(!rl){rl=1;location.reload()}})}
 (()=>{const q=new URLSearchParams(location.search);if(q.get('lv'))setLv(+q.get('lv'));if(q.get('rot'))$('#rotBtn').click()})();
 
 setTimeout(()=>{if(!location.search.includes('noscroll')&&(location.hash||'#guide')==='#guide'){const r=$('.row.cur');if(r)window.scrollTo(0,r.offsetTop-$('.bar').offsetHeight-8)}},50);
