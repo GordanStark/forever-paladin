@@ -61,15 +61,17 @@ LEARN = {}
 for _lv in sorted(TR):
     for _x in TR[_lv]:
         if _x["kind"] == "New ability": LEARN.setdefault(_x["name"], _lv)
-ITEM = {"Food": 1, "Water": 1, "Hearthstone": 1, "Bow & Buff": 4}
+ITEM = {"Mount": 1, "Food": 1, "Water": 1, "Hearthstone": 1, "Bow & Buff": 4}
 # each slot: candidates in order (name, unconfirmed_placement); latest learned wins
 BARS = {
  "top": [[("Divine Protection",0),("Divine Shield",1)], [("Holy Light",0)], [("Blessing of Protection",0)],
-         [("Blessing of Freedom",0)], [("Purify",0),("Cleanse",1)], [("Lay on Hands",0)]],
+         [("Blessing of Freedom",0)], [("Purify",0),("Cleanse",1)], [("Lay on Hands",0)], [("Hammer of Wrath",1)]],
  "mid": [[("Seal of Righteousness",0),("Holy Strike",0)], [("Judgement",0)], [("Seal of Righteousness@6",0),("Seal of Command",0)],
-         [("Consecration",0)], [("Hammer of Justice",0)], [("Flash of Light",0)]],
+         [("Consecration",0)], [("Hammer of Justice",0)], [("Flash of Light",0)], [("Divine Intervention",0)]],
  "bot": [[("Food",0)], [("Water",0)], [("Bow & Buff",0)], [("Exorcism",0)],
-         [("Redemption",0)], [("Hearthstone",0)]],
+         [("Redemption",0)], [("Hearthstone",0)], [("Mount",0),("Summon Warhorse",1)]],
+ "aur": [[("Devotion Aura",0)], [("Retribution Aura",0)], [("Concentration Aura",0)], [("Shadow Resistance Aura",0)],
+         [("Frost Resistance Aura",0)], [("Fire Resistance Aura",0)], [("Righteous Fury",0)]],
 }
 def bars_at(lv):
     out = {}
@@ -86,10 +88,10 @@ def bars_at(lv):
     return out
 BARDATA = {lv: bars_at(lv) for lv in range(1, 61)}
 def bar_changes(lv):
-    a, b = BARDATA[lv], BARDATA.get(lv-1, {"top":[None]*6,"mid":[None]*6,"bot":[None]*6})
+    a, b = BARDATA[lv], BARDATA.get(lv-1, {"top":[None]*7,"mid":[None]*7,"bot":[None]*7,"aur":[None]*7})
     ch = []
-    for r, lab in (("top","Top"),("mid","Middle"),("bot","Bottom")):
-        for i in range(6):
+    for r, lab in (("top","Top"),("mid","Middle"),("bot","Bottom"),("aur","Aura")):
+        for i in range(7):
             if a[r][i] != b[r][i] and a[r][i]:
                 ch.append(f'{lab} {i+1 if r=="mid" else i+1}: {a[r][i]["n"]}' + (" (unconfirmed)" if a[r][i]["u"] else ""))
     return ch
@@ -235,7 +237,7 @@ PAGE = f'''<!doctype html><html lang="en"><head><meta charset="utf-8">
 /cast Blessing of Might
 /bow</pre><button id="copyMacro" class="ghost">Copy macro</button>
  <p class="src">Make it in-game with /macro, then New. It casts Blessing of Might before Lv 20 and Blessing of Kings from Lv 20 (the text above follows your level). Character macros hold 255 characters, and this one is far under. That limit is from standard WoW and wasn't checked against Forever.</p></div>
- <div class="card"><h3>Not on bars</h3><p class="note">Hammer of Wrath (44), Seal of the Crusader, Blessing of Might/Kings (cast by Bow &amp; Buff), Blessing of Wisdom, Salvation, Light, Sacrifice, auras, Righteous Fury, Turn Undead, Sense Undead, Divine Intervention, Greater Blessings. Drag them from your spellbook if you want them.</p></div>
+ <div class="card"><h3>Not on bars</h3><p class="note">Seal of the Crusader, Blessing of Might/Kings (cast by Bow &amp; Buff), Blessing of Wisdom, Salvation, Light, Sacrifice, Turn Undead, Sense Undead, Holy Wrath (50), Summon Charger (60, talent mount), Greater Blessings. Drag them from your spellbook if you want them.</p></div>
  <p class="src">Learn levels from <a href="{TFE}">The Forever Era</a> beta client data. Seal of Command needs the talent (taken at 20 in the plan). Middle 3 follows the weapon toggle. Spells after 30 can't be tested in the beta.</p>
 </section>
 <section id="t-back" class="tab"><h2>Back from a break</h2>
@@ -284,6 +286,6 @@ PAGE = linkify(PAGE)
 open("index.html", "w").write(PAGE)
 icons = sorted({v["i"] for v in SPELLS.values()})
 sw = open("sw.js").read()
-sw = _re.sub(r"const C='pal-v\d+',F=\[[^\]]*\]", "const C='pal-v11',F=" + json.dumps(['./','index.html','style.css','app.js','data.json','manifest.webmanifest','icons/icon-180.png','icons/icon-192.png','icons/icon-512.png'] + [f"icons/spells/{i}.jpg" for i in icons]), sw)
+sw = _re.sub(r"const C='pal-v\d+',F=\[[^\]]*\]", "const C='pal-v12',F=" + json.dumps(['./','index.html','style.css','app.js','data.json','manifest.webmanifest','icons/icon-180.png','icons/icon-192.png','icons/icon-512.png'] + [f"icons/spells/{i}.jpg" for i in icons]), sw)
 open("sw.js","w").write(sw)
 print("built", len(PAGE))
