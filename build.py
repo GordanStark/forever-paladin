@@ -65,7 +65,7 @@ ITEM = {"Mount": 1, "Food": 1, "Water": 1, "Hearthstone": 1, "Bow & Buff": 4}
 # each slot: candidates in order (name, unconfirmed_placement); latest learned wins
 BARS = {
  "top": [[("Divine Protection",0),("Divine Shield",1)], [("Holy Light",0)], [("Blessing of Protection",0)],
-         [("Blessing of Freedom",0)], [("Purify",0),("Cleanse",1)], [("Lay on Hands",0)], [("Hammer of Wrath",1)]],
+         [("Blessing of Freedom",0)], [("Purify",0),("Cleanse",1)], [("Hammer of Wrath",1)], [("Lay on Hands",0)]],
  "mid": [[("Seal of Righteousness",0),("Holy Strike",0)], [("Judgement",0)], [("Seal of Righteousness@6",0),("Seal of Command",0)],
          [("Consecration",0)], [("Hammer of Justice",0)], [("Flash of Light",0)], [("Divine Intervention",0)]],
  "bot": [[("Food",0)], [("Water",0)], [("Bow & Buff",0)], [("Exorcism",0)],
@@ -286,6 +286,6 @@ PAGE = linkify(PAGE)
 open("index.html", "w").write(PAGE)
 icons = sorted({v["i"] for v in SPELLS.values()})
 sw = open("sw.js").read()
-sw = _re.sub(r"const C='pal-v\d+',F=\[[^\]]*\]", "const C='pal-v12',F=" + json.dumps(['./','index.html','style.css','app.js','data.json','manifest.webmanifest','icons/icon-180.png','icons/icon-192.png','icons/icon-512.png'] + [f"icons/spells/{i}.jpg" for i in icons]), sw)
+sw = _re.sub(r"const C='pal-v\d+',F=\[[^\]]*\]", "const C='pal-v13',F=" + json.dumps(['./','index.html','style.css','app.js','data.json','manifest.webmanifest','icons/icon-180.png','icons/icon-192.png','icons/icon-512.png'] + [f"icons/spells/{i}.jpg" for i in icons]), sw)
 open("sw.js","w").write(sw)
 print("built", len(PAGE))

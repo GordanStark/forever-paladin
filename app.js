@@ -23,8 +23,8 @@ function rotFor(l){const a=[];
  if(l>=20)a.push('<b>Consecration</b> on 3+ mobs (mana-heavy)');
  if(l>=8)a.push('<b>Hammer of Justice</b> (key 5) to stun or interrupt');
  if(l>=20)a.push('Exorcism (Bottom 4) on Undead/Demons');
- a.push((l>=20?'Top-up: Flash of Light (key 6) · ':'')+'Low HP: Divine Protection → Holy Light (Top 1-2)'+(l>=10?' · Last resort: Lay on Hands (Top 6)':''));
- if(l>=44)a.push('Hammer of Wrath (Top 7) on targets below 20% HP');
+ a.push((l>=20?'Top-up: Flash of Light (key 6) · ':'')+'Low HP: Divine Protection → Holy Light (Top 1-2)'+(l>=10?' · Last resort: Lay on Hands (Top 7)':''));
+ if(l>=44)a.push('Hammer of Wrath (Top 6) on targets below 20% HP');
  if(l>=10)a.push('Bad pull: Blessing of Protection on yourself and run'+(l>=18?' · Rooted: Blessing of Freedom':''));
  a.push('Buffs: Bow & Buff ('+(l>=20?'Kings':'Might')+') + Retribution Aura');
  return `<ol>${a.map(x=>'<li>'+x+'</li>').join('')}</ol><span class="src">Icy Veins Forever Ret</span>`}
