@@ -1,0 +1,5 @@
+{"example":true,"name":"Gordan Stark","level":14,"race":"Human","class":"Paladin","gold":{"g":2,"s":37,"c":15},"lastSynced":"EXAMPLE – never synced",
+"gear":[{"slot":"Main Hand","item":"Example Two-Handed Sword","ilvl":15},{"slot":"Chest","item":"Example Mail Vest","ilvl":12},{"slot":"Legs","item":"Example Mail Leggings","ilvl":13}],
+"bags":[{"item":"Refreshing Spring Water","count":20},{"item":"Copper Ore","count":14},{"item":"Linen Bandage","count":8}],
+"professions":[{"name":"Mining","skill":62,"max":75},{"name":"Blacksmithing","skill":55,"max":75},{"name":"Cooking","skill":40,"max":75},{"name":"First Aid","skill":45,"max":75}],
+"mounts":[]}

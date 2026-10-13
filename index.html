@@ -1,0 +1,350 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Gordan Stark · Ret Paladin</title>
+<meta name="theme-color" content="#0b1526">
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Gordan Stark">
+<link rel="apple-touch-icon" href="icons/icon-180.png"><link rel="icon" href="icons/icon-192.png">
+<link rel="manifest" href="manifest.webmanifest"><link rel="stylesheet" href="style.css">
+</head><body>
+<header class="bar">
+ <div class="bar-top"><div class="who"><b>Gordan Stark</b><span>Human Ret Paladin · Lv <span id="curLv">1</span></span></div>
+  <div class="lvpick"><button id="lvDown" aria-label="Level down">−</button><select id="lvSel" aria-label="Current level"></select><button id="lvUp" aria-label="Level up">+</button></div></div>
+ <button id="rotBtn" class="rotbtn" aria-expanded="false">⚔ Rotation <span id="rotTag"></span></button>
+ <div id="rot" class="rot" hidden></div>
+ <nav class="tabs"><a href="#guide">1-60</a><a href="#ret">Ret</a><a href="#gear">Gear</a><a href="#prof">Profs</a><a href="#prot">Prot</a><a href="#back">Break</a><a href="#me">Me</a></nav>
+</header>
+<main>
+<section id="t-guide" class="tab"><h2>Leveling 1-60</h2>
+ <p class="note">Tap a level to open it. Check it off and it collapses. Levels 1-30 match the beta; 31-60 is mostly unannounced.</p>
+ <label class="ci inline"><input type="checkbox" id="hideDone"> <span>Hide finished levels</span></label>
+ <div class="row" data-lv="1" id="lv1">
+ <div class="row-head"><button class="chk" aria-label="Mark level 1 done" data-k="lv1"></button>
+  <span class="lv">1</span><span class="sum">Start in Northshire Abbey, Elwynn Forest. Seal o…</span><span class="zone">Northshire / Elwynn Forest</span></div>
+ <div class="row-body"><ul><li>Start in Northshire Abbey, Elwynn Forest. Seal of Righteousness + auto-attack.</li><li>Train every few levels at the Paladin trainer (Northshire / Stormwind Cathedral).</li></ul><div class="zline">Zone: Northshire / Elwynn Forest <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+</div><div class="row" data-lv="2" id="lv2">
+ <div class="row-head"><button class="chk" aria-label="Mark level 2 done" data-k="lv2"></button>
+  <span class="lv">2</span><span class="sum">Quest on</span><span class="zone">Northshire / Elwynn Forest</span></div>
+ <div class="row-body"><ul></ul><div class="zline">Zone: Northshire / Elwynn Forest <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+</div><div class="row" data-lv="3" id="lv3">
+ <div class="row-head"><button class="chk" aria-label="Mark level 3 done" data-k="lv3"></button>
+  <span class="lv">3</span><span class="sum">Quest on</span><span class="zone">Northshire / Elwynn Forest</span></div>
+ <div class="row-body"><ul></ul><div class="zline">Zone: Northshire / Elwynn Forest <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+</div><div class="row" data-lv="4" id="lv4">
+ <div class="row-head"><button class="chk" aria-label="Mark level 4 done" data-k="lv4"></button>
+  <span class="lv">4</span><span class="sum">Quest on</span><span class="zone">Northshire / Elwynn Forest</span></div>
+ <div class="row-body"><ul></ul><div class="zline">Zone: Northshire / Elwynn Forest <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+</div><div class="row" data-lv="5" id="lv5">
+ <div class="row-head"><button class="chk" aria-label="Mark level 5 done" data-k="lv5"></button>
+  <span class="lv">5</span><span class="sum">Pick up Mining at a trainer; Blacksmithing in Go…</span><span class="zone">Northshire / Elwynn Forest</span></div>
+ <div class="row-body"><ul><li>Pick up Mining at a trainer; Blacksmithing in Goldshire/Stormwind. Cooking + First Aid too.</li></ul><div class="zline">Zone: Northshire / Elwynn Forest <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+</div><div class="row" data-lv="6" id="lv6">
+ <div class="row-head"><button class="chk" aria-label="Mark level 6 done" data-k="lv6"></button>
+  <span class="lv">6</span><span class="sum">Holy Strike unlocked — press it on cooldown when…</span><span class="zone">Northshire / Elwynn Forest</span></div>
+ <div class="row-body"><ul><li>Holy Strike unlocked — press it on cooldown when you have mana. [Icy Veins]</li></ul><div class="zline">Zone: Northshire / Elwynn Forest <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+</div><div class="row" data-lv="7" id="lv7">
+ <div class="row-head"><button class="chk" aria-label="Mark level 7 done" data-k="lv7"></button>
+  <span class="lv">7</span><span class="sum">Quest on</span><span class="zone">Northshire / Elwynn Forest</span></div>
+ <div class="row-body"><ul></ul><div class="zline">Zone: Northshire / Elwynn Forest <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+</div><div class="row" data-lv="8" id="lv8">
+ <div class="row-head"><button class="chk" aria-label="Mark level 8 done" data-k="lv8"></button>
+  <span class="lv">8</span><span class="sum">Quest on</span><span class="zone">Northshire / Elwynn Forest</span></div>
+ <div class="row-body"><ul></ul><div class="zline">Zone: Northshire / Elwynn Forest <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+</div><div class="row" data-lv="9" id="lv9">
+ <div class="row-head"><button class="chk" aria-label="Mark level 9 done" data-k="lv9"></button>
+  <span class="lv">9</span><span class="sum">Quest on</span><span class="zone">Northshire / Elwynn Forest</span></div>
+ <div class="row-body"><ul></ul><div class="zline">Zone: Northshire / Elwynn Forest <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+</div><div class="row" data-lv="10" id="lv10">
+ <div class="row-head"><button class="chk" aria-label="Mark level 10 done" data-k="lv10"></button>
+  <span class="lv">10</span><span class="sum">Benediction</span><span class="zone">Westfall / Loch Modan</span></div>
+ <div class="row-body"><div class="tal"><b>Benediction</b> <span class="rank">1/5</span><div class="eff">Holy · cheaper spells (mana)</div><span class="src">Icy Veins key talent · order: your plan</span></div><ul><li>Talents open. Head toward Westfall / Loch Modan.</li><li>Equip the slowest two-hander you can find (sword ideal).</li></ul><div class="zline">Zone: Westfall / Loch Modan <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+</div><div class="row" data-lv="11" id="lv11">
+ <div class="row-head"><button class="chk" aria-label="Mark level 11 done" data-k="lv11"></button>
+  <span class="lv">11</span><span class="sum">Benediction</span><span class="zone">Westfall / Loch Modan</span></div>
+ <div class="row-body"><div class="tal"><b>Benediction</b> <span class="rank">2/5</span><div class="eff">Holy · cheaper spells (mana)</div><span class="src">Icy Veins key talent · order: your plan</span></div><ul></ul><div class="zline">Zone: Westfall / Loch Modan <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+</div><div class="row" data-lv="12" id="lv12">
+ <div class="row-head"><button class="chk" aria-label="Mark level 12 done" data-k="lv12"></button>
+  <span class="lv">12</span><span class="sum">Benediction</span><span class="zone">Westfall / Loch Modan</span></div>
+ <div class="row-body"><div class="tal"><b>Benediction</b> <span class="rank">3/5</span><div class="eff">Holy · cheaper spells (mana)</div><span class="src">Icy Veins key talent · order: your plan</span></div><ul></ul><div class="zline">Zone: Westfall / Loch Modan <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+</div><div class="row" data-lv="13" id="lv13">
+ <div class="row-head"><button class="chk" aria-label="Mark level 13 done" data-k="lv13"></button>
+  <span class="lv">13</span><span class="sum">Benediction</span><span class="zone">Westfall / Loch Modan</span></div>
+ <div class="row-body"><div class="tal"><b>Benediction</b> <span class="rank">4/5</span><div class="eff">Holy · cheaper spells (mana)</div><span class="src">Icy Veins key talent · order: your plan</span></div><ul></ul><div class="zline">Zone: Westfall / Loch Modan <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+</div><div class="row" data-lv="14" id="lv14">
+ <div class="row-head"><button class="chk" aria-label="Mark level 14 done" data-k="lv14"></button>
+  <span class="lv">14</span><span class="sum">Benediction</span><span class="zone">Westfall / Loch Modan</span></div>
+ <div class="row-body"><div class="tal"><b>Benediction</b> <span class="rank">5/5</span><div class="eff">Holy · cheaper spells (mana)</div><span class="src">Icy Veins key talent · order: your plan</span></div><ul></ul><div class="zline">Zone: Westfall / Loch Modan <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+</div><div class="row" data-lv="15" id="lv15">
+ <div class="row-head"><button class="chk" aria-label="Mark level 15 done" data-k="lv15"></button>
+  <span class="lv">15</span><span class="sum">Conviction</span><span class="zone">Westfall / Loch Modan</span></div>
+ <div class="row-body"><div class="tal"><b>Conviction</b> <span class="rank">1/5</span><div class="eff">Ret · more crit</div><span class="src">Icy Veins key talent · order: your plan</span></div><ul></ul><div class="zline">Zone: Westfall / Loch Modan <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+</div><div class="row" data-lv="16" id="lv16">
+ <div class="row-head"><button class="chk" aria-label="Mark level 16 done" data-k="lv16"></button>
+  <span class="lv">16</span><span class="sum">Conviction</span><span class="zone">Westfall / Loch Modan</span></div>
+ <div class="row-body"><div class="tal"><b>Conviction</b> <span class="rank">2/5</span><div class="eff">Ret · more crit</div><span class="src">Icy Veins key talent · order: your plan</span></div><ul></ul><div class="zline">Zone: Westfall / Loch Modan <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+</div><div class="row" data-lv="17" id="lv17">
+ <div class="row-head"><button class="chk" aria-label="Mark level 17 done" data-k="lv17"></button>
+  <span class="lv">17</span><span class="sum">Conviction</span><span class="zone">Westfall / Loch Modan</span></div>
+ <div class="row-body"><div class="tal"><b>Conviction</b> <span class="rank">3/5</span><div class="eff">Ret · more crit</div><span class="src">Icy Veins key talent · order: your plan</span></div><ul></ul><div class="zline">Zone: Westfall / Loch Modan <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+</div><div class="row" data-lv="18" id="lv18">
+ <div class="row-head"><button class="chk" aria-label="Mark level 18 done" data-k="lv18"></button>
+  <span class="lv">18</span><span class="sum">Conviction</span><span class="zone">Redridge Mountains</span></div>
+ <div class="row-body"><div class="tal"><b>Conviction</b> <span class="rank">4/5</span><div class="eff">Ret · more crit</div><span class="src">Icy Veins key talent · order: your plan</span></div><ul></ul><div class="zline">Zone: Redridge Mountains <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+</div><div class="row" data-lv="19" id="lv19">
+ <div class="row-head"><button class="chk" aria-label="Mark level 19 done" data-k="lv19"></button>
+  <span class="lv">19</span><span class="sum">Conviction</span><span class="zone">Redridge Mountains</span></div>
+ <div class="row-body"><div class="tal"><b>Conviction</b> <span class="rank">5/5</span><div class="eff">Ret · more crit</div><span class="src">Icy Veins key talent · order: your plan</span></div><ul></ul><div class="zline">Zone: Redridge Mountains <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+</div><div class="row" data-lv="20" id="lv20">
+ <div class="row-head"><button class="chk" aria-label="Mark level 20 done" data-k="lv20"></button>
+  <span class="lv">20</span><span class="sum">Seal of Command</span><span class="zone">Duskwood / Wetlands</span></div>
+ <div class="row-body"><div class="tal"><b>Seal of Command</b> <span class="rank">1/1</span><div class="eff">Ret · seal for slow two-handers</div><span class="src">Icy Veins key talent · order: your plan</span></div><ul><li>Consecration — your first AoE. Mana-hungry: 2-3 mobs max solo. [Icy Veins]</li><li>Seal of Command talent — swap from SoR if your 2H is slow.</li></ul><div class="zline">Zone: Duskwood / Wetlands <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+</div><div class="row" data-lv="21" id="lv21">
+ <div class="row-head"><button class="chk" aria-label="Mark level 21 done" data-k="lv21"></button>
+  <span class="lv">21</span><span class="sum">Sanctified Judgement</span><span class="zone">Duskwood / Wetlands</span></div>
+ <div class="row-body"><div class="tal"><b>Sanctified Judgement</b> <span class="rank">1/3</span><div class="eff">Ret · Judgement mana return</div><span class="src">Icy Veins key talent · order: your plan</span></div><ul></ul><div class="zline">Zone: Duskwood / Wetlands <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+</div><div class="row" data-lv="22" id="lv22">
+ <div class="row-head"><button class="chk" aria-label="Mark level 22 done" data-k="lv22"></button>
+  <span class="lv">22</span><span class="sum">Sanctified Judgement</span><span class="zone">Duskwood / Wetlands</span></div>
+ <div class="row-body"><div class="tal"><b>Sanctified Judgement</b> <span class="rank">2/3</span><div class="eff">Ret · Judgement mana return</div><span class="src">Icy Veins key talent · order: your plan</span></div><ul></ul><div class="zline">Zone: Duskwood / Wetlands <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+</div><div class="row" data-lv="23" id="lv23">
+ <div class="row-head"><button class="chk" aria-label="Mark level 23 done" data-k="lv23"></button>
+  <span class="lv">23</span><span class="sum">Sanctified Judgement</span><span class="zone">Duskwood / Wetlands</span></div>
+ <div class="row-body"><div class="tal"><b>Sanctified Judgement</b> <span class="rank">3/3</span><div class="eff">Ret · Judgement mana return</div><span class="src">Icy Veins key talent · order: your plan</span></div><ul></ul><div class="zline">Zone: Duskwood / Wetlands <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+</div><div class="row" data-lv="24" id="lv24">
+ <div class="row-head"><button class="chk" aria-label="Mark level 24 done" data-k="lv24"></button>
+  <span class="lv">24</span><span class="sum">Pursuit of Justice</span><span class="zone">Duskwood / Wetlands</span></div>
+ <div class="row-body"><div class="tal"><b>Pursuit of Justice</b> <span class="rank">1/2</span><div class="eff">Ret · run speed (your only one)</div><span class="src">Icy Veins key talent · order: your plan</span></div><ul></ul><div class="zline">Zone: Duskwood / Wetlands <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+</div><div class="row" data-lv="25" id="lv25">
+ <div class="row-head"><button class="chk" aria-label="Mark level 25 done" data-k="lv25"></button>
+  <span class="lv">25</span><span class="sum">Pursuit of Justice</span><span class="zone">Ashenvale / Wetlands</span></div>
+ <div class="row-body"><div class="tal"><b>Pursuit of Justice</b> <span class="rank">2/2</span><div class="eff">Ret · run speed (your only one)</div><span class="src">Icy Veins key talent · order: your plan</span></div><ul></ul><div class="zline">Zone: Ashenvale / Wetlands <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+</div><div class="row" data-lv="26" id="lv26">
+ <div class="row-head"><button class="chk" aria-label="Mark level 26 done" data-k="lv26"></button>
+  <span class="lv">26</span><span class="sum">Sacred Arbiter</span><span class="zone">Ashenvale / Wetlands</span></div>
+ <div class="row-body"><div class="tal"><b>Sacred Arbiter</b> <span class="rank">1/1</span><div class="eff">Ret · more Judgement / Holy Strike damage</div><span class="src">Icy Veins key talent · order: your plan</span></div><ul></ul><div class="zline">Zone: Ashenvale / Wetlands <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+</div><div class="row" data-lv="27" id="lv27">
+ <div class="row-head"><button class="chk" aria-label="Mark level 27 done" data-k="lv27"></button>
+  <span class="lv">27</span><span class="sum">Vindication</span><span class="zone">Ashenvale / Wetlands</span></div>
+ <div class="row-body"><div class="tal"><b>Vindication</b> <span class="rank">1/3</span><div class="eff">Ret · weakens what you hit</div><span class="src">Icy Veins key talent · order: your plan</span></div><ul></ul><div class="zline">Zone: Ashenvale / Wetlands <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+</div><div class="row" data-lv="28" id="lv28">
+ <div class="row-head"><button class="chk" aria-label="Mark level 28 done" data-k="lv28"></button>
+  <span class="lv">28</span><span class="sum">Vindication</span><span class="zone">Ashenvale / Wetlands</span></div>
+ <div class="row-body"><div class="tal"><b>Vindication</b> <span class="rank">2/3</span><div class="eff">Ret · weakens what you hit</div><span class="src">Icy Veins key talent · order: your plan</span></div><ul></ul><div class="zline">Zone: Ashenvale / Wetlands <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+</div><div class="row" data-lv="29" id="lv29">
+ <div class="row-head"><button class="chk" aria-label="Mark level 29 done" data-k="lv29"></button>
+  <span class="lv">29</span><span class="sum">Vindication</span><span class="zone">Ashenvale / Wetlands</span></div>
+ <div class="row-body"><div class="tal"><b>Vindication</b> <span class="rank">3/3</span><div class="eff">Ret · weakens what you hit</div><span class="src">Icy Veins key talent · order: your plan</span></div><ul></ul><div class="zline">Zone: Ashenvale / Wetlands <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+</div><div class="row" data-lv="30" id="lv30">
+ <div class="row-head"><button class="chk" aria-label="Mark level 30 done" data-k="lv30"></button>
+  <span class="lv">30</span><span class="sum">Vengeance</span><span class="zone">Hillsbrad / Alterac &amp; beyond</span></div>
+ <div class="row-body"><div class="tal"><b>Vengeance</b> <span class="rank">1/3</span><div class="eff">Ret · damage after crits</div><span class="src">Icy Veins key talent · order: your plan</span></div><ul><li>Beta cap. Check Merchant&#x27;s Favor Blacksmithing recipes (Crusader&#x27;s set). [Icy Veins]</li><li>Shockadin (Holy Shock) build becomes possible — not our plan.</li></ul><div class="zline">Zone: Hillsbrad / Alterac &amp; beyond <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+</div><div class="row" data-lv="31" id="lv31">
+ <div class="row-head"><button class="chk" aria-label="Mark level 31 done" data-k="lv31"></button>
+  <span class="lv">31</span><span class="sum">Quest on</span><span class="zone">Hillsbrad / Alterac &amp; beyond</span></div>
+ <div class="row-body"><div class="tal unk"><b>Talent point</b><div class="eff">31-60 builds not published (beta cap 30). Will fill in at launch.</div><span class="src warn">Unannounced</span></div><ul></ul><div class="zline">Zone: Hillsbrad / Alterac &amp; beyond <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+</div><div class="row" data-lv="32" id="lv32">
+ <div class="row-head"><button class="chk" aria-label="Mark level 32 done" data-k="lv32"></button>
+  <span class="lv">32</span><span class="sum">Quest on</span><span class="zone">Hillsbrad / Alterac &amp; beyond</span></div>
+ <div class="row-body"><div class="tal unk"><b>Talent point</b><div class="eff">31-60 builds not published (beta cap 30). Will fill in at launch.</div><span class="src warn">Unannounced</span></div><ul></ul><div class="zline">Zone: Hillsbrad / Alterac &amp; beyond <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+</div><div class="row" data-lv="33" id="lv33">
+ <div class="row-head"><button class="chk" aria-label="Mark level 33 done" data-k="lv33"></button>
+  <span class="lv">33</span><span class="sum">Quest on</span><span class="zone">Hillsbrad / Alterac &amp; beyond</span></div>
+ <div class="row-body"><div class="tal unk"><b>Talent point</b><div class="eff">31-60 builds not published (beta cap 30). Will fill in at launch.</div><span class="src warn">Unannounced</span></div><ul></ul><div class="zline">Zone: Hillsbrad / Alterac &amp; beyond <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+</div><div class="row" data-lv="34" id="lv34">
+ <div class="row-head"><button class="chk" aria-label="Mark level 34 done" data-k="lv34"></button>
+  <span class="lv">34</span><span class="sum">Quest on</span><span class="zone">Hillsbrad / Alterac &amp; beyond</span></div>
+ <div class="row-body"><div class="tal unk"><b>Talent point</b><div class="eff">31-60 builds not published (beta cap 30). Will fill in at launch.</div><span class="src warn">Unannounced</span></div><ul></ul><div class="zline">Zone: Hillsbrad / Alterac &amp; beyond <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+</div><div class="row" data-lv="35" id="lv35">
+ <div class="row-head"><button class="chk" aria-label="Mark level 35 done" data-k="lv35"></button>
+  <span class="lv">35</span><span class="sum">Quest on</span><span class="zone">Hillsbrad / Alterac &amp; beyond</span></div>
+ <div class="row-body"><div class="tal unk"><b>Talent point</b><div class="eff">31-60 builds not published (beta cap 30). Will fill in at launch.</div><span class="src warn">Unannounced</span></div><ul></ul><div class="zline">Zone: Hillsbrad / Alterac &amp; beyond <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+</div><div class="row" data-lv="36" id="lv36">
+ <div class="row-head"><button class="chk" aria-label="Mark level 36 done" data-k="lv36"></button>
+  <span class="lv">36</span><span class="sum">Quest on</span><span class="zone">Hillsbrad / Alterac &amp; beyond</span></div>
+ <div class="row-body"><div class="tal unk"><b>Talent point</b><div class="eff">31-60 builds not published (beta cap 30). Will fill in at launch.</div><span class="src warn">Unannounced</span></div><ul></ul><div class="zline">Zone: Hillsbrad / Alterac &amp; beyond <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+</div><div class="row" data-lv="37" id="lv37">
+ <div class="row-head"><button class="chk" aria-label="Mark level 37 done" data-k="lv37"></button>
+  <span class="lv">37</span><span class="sum">Quest on</span><span class="zone">Hillsbrad / Alterac &amp; beyond</span></div>
+ <div class="row-body"><div class="tal unk"><b>Talent point</b><div class="eff">31-60 builds not published (beta cap 30). Will fill in at launch.</div><span class="src warn">Unannounced</span></div><ul></ul><div class="zline">Zone: Hillsbrad / Alterac &amp; beyond <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+</div><div class="row" data-lv="38" id="lv38">
+ <div class="row-head"><button class="chk" aria-label="Mark level 38 done" data-k="lv38"></button>
+  <span class="lv">38</span><span class="sum">Quest on</span><span class="zone">Hillsbrad / Alterac &amp; beyond</span></div>
+ <div class="row-body"><div class="tal unk"><b>Talent point</b><div class="eff">31-60 builds not published (beta cap 30). Will fill in at launch.</div><span class="src warn">Unannounced</span></div><ul></ul><div class="zline">Zone: Hillsbrad / Alterac &amp; beyond <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+</div><div class="row" data-lv="39" id="lv39">
+ <div class="row-head"><button class="chk" aria-label="Mark level 39 done" data-k="lv39"></button>
+  <span class="lv">39</span><span class="sum">Quest on</span><span class="zone">Hillsbrad / Alterac &amp; beyond</span></div>
+ <div class="row-body"><div class="tal unk"><b>Talent point</b><div class="eff">31-60 builds not published (beta cap 30). Will fill in at launch.</div><span class="src warn">Unannounced</span></div><ul></ul><div class="zline">Zone: Hillsbrad / Alterac &amp; beyond <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+</div><div class="row" data-lv="40" id="lv40">
+ <div class="row-head"><button class="chk" aria-label="Mark level 40 done" data-k="lv40"></button>
+  <span class="lv">40</span><span class="sum">Dual Specialization reportedly opens (Ret + Prot…</span><span class="zone">Stranglethorn / Arathi / Desolace</span></div>
+ <div class="row-body"><div class="tal unk"><b>Talent point</b><div class="eff">31-60 builds not published (beta cap 30). Will fill in at launch.</div><span class="src warn">Unannounced</span></div><ul><li>Dual Specialization reportedly opens (Ret + Prot). See Prot tab. [unconfirmed cost]</li></ul><div class="zline">Zone: Stranglethorn / Arathi / Desolace <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+</div><div class="row" data-lv="41" id="lv41">
+ <div class="row-head"><button class="chk" aria-label="Mark level 41 done" data-k="lv41"></button>
+  <span class="lv">41</span><span class="sum">Quest on</span><span class="zone">Stranglethorn / Arathi / Desolace</span></div>
+ <div class="row-body"><div class="tal unk"><b>Talent point</b><div class="eff">31-60 builds not published (beta cap 30). Will fill in at launch.</div><span class="src warn">Unannounced</span></div><ul></ul><div class="zline">Zone: Stranglethorn / Arathi / Desolace <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+</div><div class="row" data-lv="42" id="lv42">
+ <div class="row-head"><button class="chk" aria-label="Mark level 42 done" data-k="lv42"></button>
+  <span class="lv">42</span><span class="sum">Quest on</span><span class="zone">Stranglethorn / Arathi / Desolace</span></div>
+ <div class="row-body"><div class="tal unk"><b>Talent point</b><div class="eff">31-60 builds not published (beta cap 30). Will fill in at launch.</div><span class="src warn">Unannounced</span></div><ul></ul><div class="zline">Zone: Stranglethorn / Arathi / Desolace <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+</div><div class="row" data-lv="43" id="lv43">
+ <div class="row-head"><button class="chk" aria-label="Mark level 43 done" data-k="lv43"></button>
+  <span class="lv">43</span><span class="sum">Quest on</span><span class="zone">Stranglethorn / Arathi / Desolace</span></div>
+ <div class="row-body"><div class="tal unk"><b>Talent point</b><div class="eff">31-60 builds not published (beta cap 30). Will fill in at launch.</div><span class="src warn">Unannounced</span></div><ul></ul><div class="zline">Zone: Stranglethorn / Arathi / Desolace <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+</div><div class="row" data-lv="44" id="lv44">
+ <div class="row-head"><button class="chk" aria-label="Mark level 44 done" data-k="lv44"></button>
+  <span class="lv">44</span><span class="sum">Quest on</span><span class="zone">Stranglethorn / Arathi / Desolace</span></div>
+ <div class="row-body"><div class="tal unk"><b>Talent point</b><div class="eff">31-60 builds not published (beta cap 30). Will fill in at launch.</div><span class="src warn">Unannounced</span></div><ul></ul><div class="zline">Zone: Stranglethorn / Arathi / Desolace <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+</div><div class="row" data-lv="45" id="lv45">
+ <div class="row-head"><button class="chk" aria-label="Mark level 45 done" data-k="lv45"></button>
+  <span class="lv">45</span><span class="sum">Quest on</span><span class="zone">Tanaris / Feralas / Hinterlands</span></div>
+ <div class="row-body"><div class="tal unk"><b>Talent point</b><div class="eff">31-60 builds not published (beta cap 30). Will fill in at launch.</div><span class="src warn">Unannounced</span></div><ul></ul><div class="zline">Zone: Tanaris / Feralas / Hinterlands <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+</div><div class="row" data-lv="46" id="lv46">
+ <div class="row-head"><button class="chk" aria-label="Mark level 46 done" data-k="lv46"></button>
+  <span class="lv">46</span><span class="sum">Quest on</span><span class="zone">Tanaris / Feralas / Hinterlands</span></div>
+ <div class="row-body"><div class="tal unk"><b>Talent point</b><div class="eff">31-60 builds not published (beta cap 30). Will fill in at launch.</div><span class="src warn">Unannounced</span></div><ul></ul><div class="zline">Zone: Tanaris / Feralas / Hinterlands <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+</div><div class="row" data-lv="47" id="lv47">
+ <div class="row-head"><button class="chk" aria-label="Mark level 47 done" data-k="lv47"></button>
+  <span class="lv">47</span><span class="sum">Quest on</span><span class="zone">Tanaris / Feralas / Hinterlands</span></div>
+ <div class="row-body"><div class="tal unk"><b>Talent point</b><div class="eff">31-60 builds not published (beta cap 30). Will fill in at launch.</div><span class="src warn">Unannounced</span></div><ul></ul><div class="zline">Zone: Tanaris / Feralas / Hinterlands <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+</div><div class="row" data-lv="48" id="lv48">
+ <div class="row-head"><button class="chk" aria-label="Mark level 48 done" data-k="lv48"></button>
+  <span class="lv">48</span><span class="sum">Quest on</span><span class="zone">Tanaris / Feralas / Hinterlands</span></div>
+ <div class="row-body"><div class="tal unk"><b>Talent point</b><div class="eff">31-60 builds not published (beta cap 30). Will fill in at launch.</div><span class="src warn">Unannounced</span></div><ul></ul><div class="zline">Zone: Tanaris / Feralas / Hinterlands <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+</div><div class="row" data-lv="49" id="lv49">
+ <div class="row-head"><button class="chk" aria-label="Mark level 49 done" data-k="lv49"></button>
+  <span class="lv">49</span><span class="sum">Quest on</span><span class="zone">Tanaris / Feralas / Hinterlands</span></div>
+ <div class="row-body"><div class="tal unk"><b>Talent point</b><div class="eff">31-60 builds not published (beta cap 30). Will fill in at launch.</div><span class="src warn">Unannounced</span></div><ul></ul><div class="zline">Zone: Tanaris / Feralas / Hinterlands <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+</div><div class="row" data-lv="50" id="lv50">
+ <div class="row-head"><button class="chk" aria-label="Mark level 50 done" data-k="lv50"></button>
+  <span class="lv">50</span><span class="sum">Quest on</span><span class="zone">Un&#x27;Goro / Felwood / Searing Gorge</span></div>
+ <div class="row-body"><div class="tal unk"><b>Talent point</b><div class="eff">31-60 builds not published (beta cap 30). Will fill in at launch.</div><span class="src warn">Unannounced</span></div><ul></ul><div class="zline">Zone: Un&#x27;Goro / Felwood / Searing Gorge <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+</div><div class="row" data-lv="51" id="lv51">
+ <div class="row-head"><button class="chk" aria-label="Mark level 51 done" data-k="lv51"></button>
+  <span class="lv">51</span><span class="sum">Quest on</span><span class="zone">Un&#x27;Goro / Felwood / Searing Gorge</span></div>
+ <div class="row-body"><div class="tal unk"><b>Talent point</b><div class="eff">31-60 builds not published (beta cap 30). Will fill in at launch.</div><span class="src warn">Unannounced</span></div><ul></ul><div class="zline">Zone: Un&#x27;Goro / Felwood / Searing Gorge <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+</div><div class="row" data-lv="52" id="lv52">
+ <div class="row-head"><button class="chk" aria-label="Mark level 52 done" data-k="lv52"></button>
+  <span class="lv">52</span><span class="sum">Quest on</span><span class="zone">Un&#x27;Goro / Felwood / Searing Gorge</span></div>
+ <div class="row-body"><div class="tal unk"><b>Talent point</b><div class="eff">31-60 builds not published (beta cap 30). Will fill in at launch.</div><span class="src warn">Unannounced</span></div><ul></ul><div class="zline">Zone: Un&#x27;Goro / Felwood / Searing Gorge <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+</div><div class="row" data-lv="53" id="lv53">
+ <div class="row-head"><button class="chk" aria-label="Mark level 53 done" data-k="lv53"></button>
+  <span class="lv">53</span><span class="sum">Quest on</span><span class="zone">Un&#x27;Goro / Felwood / Searing Gorge</span></div>
+ <div class="row-body"><div class="tal unk"><b>Talent point</b><div class="eff">31-60 builds not published (beta cap 30). Will fill in at launch.</div><span class="src warn">Unannounced</span></div><ul></ul><div class="zline">Zone: Un&#x27;Goro / Felwood / Searing Gorge <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+</div><div class="row" data-lv="54" id="lv54">
+ <div class="row-head"><button class="chk" aria-label="Mark level 54 done" data-k="lv54"></button>
+  <span class="lv">54</span><span class="sum">Quest on</span><span class="zone">Un&#x27;Goro / Felwood / Searing Gorge</span></div>
+ <div class="row-body"><div class="tal unk"><b>Talent point</b><div class="eff">31-60 builds not published (beta cap 30). Will fill in at launch.</div><span class="src warn">Unannounced</span></div><ul></ul><div class="zline">Zone: Un&#x27;Goro / Felwood / Searing Gorge <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+</div><div class="row" data-lv="55" id="lv55">
+ <div class="row-head"><button class="chk" aria-label="Mark level 55 done" data-k="lv55"></button>
+  <span class="lv">55</span><span class="sum">Quest on</span><span class="zone">Winterspring / Plaguelands</span></div>
+ <div class="row-body"><div class="tal unk"><b>Talent point</b><div class="eff">31-60 builds not published (beta cap 30). Will fill in at launch.</div><span class="src warn">Unannounced</span></div><ul></ul><div class="zline">Zone: Winterspring / Plaguelands <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+</div><div class="row" data-lv="56" id="lv56">
+ <div class="row-head"><button class="chk" aria-label="Mark level 56 done" data-k="lv56"></button>
+  <span class="lv">56</span><span class="sum">Quest on</span><span class="zone">Winterspring / Plaguelands</span></div>
+ <div class="row-body"><div class="tal unk"><b>Talent point</b><div class="eff">31-60 builds not published (beta cap 30). Will fill in at launch.</div><span class="src warn">Unannounced</span></div><ul></ul><div class="zline">Zone: Winterspring / Plaguelands <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+</div><div class="row" data-lv="57" id="lv57">
+ <div class="row-head"><button class="chk" aria-label="Mark level 57 done" data-k="lv57"></button>
+  <span class="lv">57</span><span class="sum">Quest on</span><span class="zone">Winterspring / Plaguelands</span></div>
+ <div class="row-body"><div class="tal unk"><b>Talent point</b><div class="eff">31-60 builds not published (beta cap 30). Will fill in at launch.</div><span class="src warn">Unannounced</span></div><ul></ul><div class="zline">Zone: Winterspring / Plaguelands <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+</div><div class="row" data-lv="58" id="lv58">
+ <div class="row-head"><button class="chk" aria-label="Mark level 58 done" data-k="lv58"></button>
+  <span class="lv">58</span><span class="sum">Quest on</span><span class="zone">Winterspring / Plaguelands</span></div>
+ <div class="row-body"><div class="tal unk"><b>Talent point</b><div class="eff">31-60 builds not published (beta cap 30). Will fill in at launch.</div><span class="src warn">Unannounced</span></div><ul></ul><div class="zline">Zone: Winterspring / Plaguelands <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+</div><div class="row" data-lv="59" id="lv59">
+ <div class="row-head"><button class="chk" aria-label="Mark level 59 done" data-k="lv59"></button>
+  <span class="lv">59</span><span class="sum">Quest on</span><span class="zone">Winterspring / Plaguelands</span></div>
+ <div class="row-body"><div class="tal unk"><b>Talent point</b><div class="eff">31-60 builds not published (beta cap 30). Will fill in at launch.</div><span class="src warn">Unannounced</span></div><ul></ul><div class="zline">Zone: Winterspring / Plaguelands <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+</div><div class="row" data-lv="60" id="lv60">
+ <div class="row-head"><button class="chk" aria-label="Mark level 60 done" data-k="lv60"></button>
+  <span class="lv">60</span><span class="sum">Max level. Endgame gear/talents not published ye…</span><span class="zone">Winterspring / Plaguelands</span></div>
+ <div class="row-body"><div class="tal unk"><b>Talent point</b><div class="eff">31-60 builds not published (beta cap 30). Will fill in at launch.</div><span class="src warn">Unannounced</span></div><ul><li>Max level. Endgame gear/talents not published yet.</li></ul><div class="zline">Zone: Winterspring / Plaguelands <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+</div>
+</section>
+
+<section id="t-ret" class="tab"><h2>Retribution</h2>
+ <div class="card"><h3>Talents to 30</h3><label class="ci"><input type="checkbox" data-k="t10"><span><b>10</b> · Benediction 1/5</span></label><label class="ci"><input type="checkbox" data-k="t11"><span><b>11</b> · Benediction 2/5</span></label><label class="ci"><input type="checkbox" data-k="t12"><span><b>12</b> · Benediction 3/5</span></label><label class="ci"><input type="checkbox" data-k="t13"><span><b>13</b> · Benediction 4/5</span></label><label class="ci"><input type="checkbox" data-k="t14"><span><b>14</b> · Benediction 5/5</span></label><label class="ci"><input type="checkbox" data-k="t15"><span><b>15</b> · Conviction 1/5</span></label><label class="ci"><input type="checkbox" data-k="t16"><span><b>16</b> · Conviction 2/5</span></label><label class="ci"><input type="checkbox" data-k="t17"><span><b>17</b> · Conviction 3/5</span></label><label class="ci"><input type="checkbox" data-k="t18"><span><b>18</b> · Conviction 4/5</span></label><label class="ci"><input type="checkbox" data-k="t19"><span><b>19</b> · Conviction 5/5</span></label><label class="ci"><input type="checkbox" data-k="t20"><span><b>20</b> · Seal of Command 1/1</span></label><label class="ci"><input type="checkbox" data-k="t21"><span><b>21</b> · Sanctified Judgement 1/3</span></label><label class="ci"><input type="checkbox" data-k="t22"><span><b>22</b> · Sanctified Judgement 2/3</span></label><label class="ci"><input type="checkbox" data-k="t23"><span><b>23</b> · Sanctified Judgement 3/3</span></label><label class="ci"><input type="checkbox" data-k="t24"><span><b>24</b> · Pursuit of Justice 1/2</span></label><label class="ci"><input type="checkbox" data-k="t25"><span><b>25</b> · Pursuit of Justice 2/2</span></label><label class="ci"><input type="checkbox" data-k="t26"><span><b>26</b> · Sacred Arbiter 1/1</span></label><label class="ci"><input type="checkbox" data-k="t27"><span><b>27</b> · Vindication 1/3</span></label><label class="ci"><input type="checkbox" data-k="t28"><span><b>28</b> · Vindication 2/3</span></label><label class="ci"><input type="checkbox" data-k="t29"><span><b>29</b> · Vindication 3/3</span></label><label class="ci"><input type="checkbox" data-k="t30"><span><b>30</b> · Vengeance 1/3</span></label>
+ <p class="src">Talent names match the Icy Veins "Retribution Focused" build (Benediction, Sanctified Judgement, Pursuit of Justice, Sacred Arbiter, Seal of Command, Vengeance). Icy Veins also highlights <b>Holy Conduit</b> and <b>Improved Judgement</b>, which aren't in this plan. Icy Veins doesn't print a level-by-level order, so double-check it in their calculator. <a href="https://www.icy-veins.com/wow-forever/retribution-paladin-melee-dps-pve-guide">Icy Veins</a></p></div>
+ <div class="card"><h3>Rotation</h3><ol>
+  <li>Always keep a Seal up. <b>Before 20:</b> Seal of Righteousness. <b>20+:</b> Seal of Command with a slow two-hander and no on-hit effect. SoR is still better with high Spell Power, a fast weapon, or "Strike of the Hydra" gear.</li>
+  <li><b>Judgement</b> on cooldown. It does <b>not</b> use up your Seal in Forever.</li>
+  <li><b>Holy Strike</b> on cooldown (from level 6).</li>
+  <li>Long fights: Seal of the Crusader, then Judgement (debuff), then switch back to SoR/SoC.</li>
+  <li>With SoC: Hammer of Justice stun, then Judgement for burst.</li>
+  <li>Exorcism on Undead and Demons.</li>
+  <li><b>Consecration</b> (20+) for groups of up to about 4. It costs a lot of mana.</li>
+ </ol><p>Buffs: Blessing of Might or Kings on yourself, plus Retribution Aura.</p>
+ <p class="src">Source: <a href="https://www.icy-veins.com/wow-forever/retribution-paladin-melee-dps-pve-guide">Icy Veins Ret</a>. Blessing duration: 60 min in Forever (from earlier research, not on the Icy Veins page).</p></div>
+ <div class="card"><h3>Staying alive solo</h3><ul>
+  <li>Mana is extra health. Holy Light yourself and keep going instead of sitting to eat (Icy Veins).</li>
+  <li>No AoE before 20, so pull one mob at a time.</li>
+  <li>Emergencies: Divine Protection, Lay on Hands, Hammer of Justice. Human <b>Will to Survive</b> breaks stuns.</li>
+  <li>Bandages and potions for when you're out of mana.</li></ul></div>
+ <div class="card"><h3>Helping strangers</h3><ul>
+  <li><b>Blessings:</b> Might for melee, Wisdom for casters, Kings if you're not sure.</li>
+  <li><b>Heals:</b> Holy Light on anyone who's struggling.</li>
+  <li><b>Blessing of Protection:</b> makes a caster or healer immune to physical damage, but they can't attack while it's on.</li>
+  <li><b>Blessing of Freedom:</b> breaks roots and slows.</li>
+  <li><b>Purify:</b> removes poison and disease.</li>
+  <li><b>Lay on Hands:</b> full heal, uses all your mana.</li>
+  <li><b>Redemption:</b> brings back dead players out of combat.</li>
+ </ul><p class="src">Source: <a href="https://www.icy-veins.com/wow-forever/protection-paladin-tank-pve-guide">Icy Veins Prot</a> utility section.</p></div>
+</section>
+
+<section id="t-gear" class="tab"><h2>Gear & Stats</h2>
+ <div class="card"><h3>Stat priority (Icy Veins, beta Lv30)</h3><ol>
+  <li><b>Weapon DPS</b>: your #1 upgrade. Slow is a bit better for Holy Strike.</li>
+  <li>Hit / Expertise (rare before 30)</li><li>Crit</li><li><b>Spell Power</b>: scales Judgement, Holy Strike, Consecration</li>
+  <li>Strength</li><li>Intellect</li><li>Agility (fine if it's there, don't chase it)</li><li>Stamina</li><li>Spirit</li></ol>
+  <p>Items with <b>both Strength and Spell Power</b> beat items with only one. Greens "of Holy Wrath" can be great.</p>
+  <p class="src warn">This is different from the earlier shorthand (Str &gt; Crit &gt; Stam &gt; Int, skip Agi/Spirit). On Icy Veins, Spell Power ranks above Strength and Stamina sits low. Stamina still keeps you safer solo. <a href="https://www.icy-veins.com/wow-forever/retribution-paladin-melee-dps-pve-guide">Icy Veins</a></p></div>
+ <div class="card"><h3>Weapon</h3><p>Two-hander. A <b>sword</b> gets Human Sword Specialization (+2% crit). Maces and axes are fine if they hit harder.</p>
+ <p>Level-30 options: Manual Crowd Pummeler (Gnomeregan), Strike of the Hydra (BFD, Aku'mai), Boneslicer (Stockades, Dextren Ward), Corpsemaker (RFK, Overlord Ramtusk), Rock Pulverizer (Badlands, Alliance quest).</p></div>
+ <div class="card"><h3>Blacksmithing pieces (Merchant's Favor recipes)</h3><ul>
+  <li>Crusader's Chain Helm</li><li>Crusader's Silvered Chain Shirt</li><li>Justicar's Belt / Crusader's Chain Belt</li><li>Crusader's Silvered Chain Leggings</li><li>Crusader's Boots</li></ul>
+  <p>Also: Cloak of the Divine Storm (Alliance Paladin quest chain), Libram: Tenets of the Silver Hand (Enchanting).</p>
+  <p class="src">Source: <a href="https://www.icy-veins.com/wow-forever/retribution-paladin-melee-dps-pve-guide">Icy Veins Lv30 gear table</a>. Exact recipe levels (20 vs 30) aren't listed.</p></div>
+</section>
+
+<section id="t-prof" class="tab"><h2>Professions</h2>
+ <div class="card"><h3>Mining + Blacksmithing ✔</h3><p>Icy Veins' top leveling combo for Ret. You craft your own mail and weapons, and Forever's Merchant's Favor recipes are some of the best gear at 30.</p>
+ <p>Bonus: sharpening stones and weightstones for your weapon.</p></div>
+ <div class="card"><h3>Secondary</h3><ul><li><b>Cooking:</b> Well Fed buff food gives stats and <b>+5% XP from kills</b> in Forever. Cooking also makes Campfires.</li><li><b>First Aid:</b> bandages, and in Forever it can make healing potions. It also adds a Stamina First Aid Kit to Campfires.</li></ul>
+ <p class="src"><a href="https://www.icy-veins.com/wow-forever/retribution-paladin-melee-dps-pve-guide">Icy Veins Ret</a>, <a href="https://www.icy-veins.com/wow-forever/protection-paladin-tank-pve-guide">Icy Veins Prot</a></p></div>
+</section>
+
+<section id="t-prot" class="tab"><h2>Protection (alt spec)</h2>
+ <div class="card"><h3>Dual spec</h3><p><b>Level 40</b>, bought from your class trainer in a capital city. Several sites cite Blizzard's 30 Sep class deep dive for this.</p>
+ <p class="src warn">Cost isn't confirmed. One site says 50g, but Blizzard hasn't given a price. The beta caps at 30, so nobody has tested it yet.</p></div>
+ <div class="card"><h3>Prep before 40 (bank it)</h3>
+  <label class="ci"><input type="checkbox" data-k="p1"><span>A one-handed weapon and a shield (upgrade the shield as you level)</span></label>
+  <label class="ci"><input type="checkbox" data-k="p2"><span>Tank pieces: Stamina, Defense, Armor, Block, plus Spell Power</span></label>
+  <label class="ci"><input type="checkbox" data-k="p3"><span>Water, plenty of it. Mana is your limit when tanking.</span></label>
+  <label class="ci"><input type="checkbox" data-k="p4"><span>Mana potions for after Lay on Hands</span></label>
+  <label class="ci"><input type="checkbox" data-k="p5"><span>Keybind Seal of Fury and Righteous Fury now so they're ready</span></label>
+ </div>
+ <div class="card"><h3>How to tank</h3><ol>
+  <li><b>Righteous Fury</b> up at all times (threat).</li>
+  <li><b>Seal of Fury</b>: when you Judge with it, it taunts for 4 seconds. That's new in Forever.</li>
+  <li><b>Consecration</b> for AoE threat, when your mana allows.</li>
+  <li>Save <b>Judgement</b> for taunting back mobs that get loose.</li>
+  <li>Holy Strike on cooldown. Exorcism on Undead and Demons.</li></ol>
+  <p>Talents (Lv30 plan): Redoubt, Precision, Anticipation, Shield Specialization, Improved Seal of Fury, then Holy Conduit in Ret.</p>
+  <p>Stats: Spell Power &gt; Hit &gt; Stamina &gt; Defense &gt; Armor &gt; Block &gt; Int &gt; Str &gt; Agi.</p>
+  <p class="src">Source: <a href="https://www.icy-veins.com/wow-forever/protection-paladin-tank-pve-guide">Icy Veins Prot</a>. Note that Icy Veins picks Dwarf for Prot (Stoneform), but Human works.</p></div>
+</section>
+
+<section id="t-back" class="tab"><h2>Back from a break</h2>
+ <div class="card big"><h3>30-second rotation</h3><ol>
+  <li>Seal up (SoR before 20, SoC with a slow 2H).</li><li>Judgement on CD (keeps your seal).</li><li>Holy Strike on CD.</li><li>Consecration if 3+ mobs.</li><li>Low health: Holy Light. Panic: Divine Protection, then Lay on Hands.</li><li>Buffs: Might/Kings + Ret Aura.</li></ol></div>
+ <div class="card"><h3>Bag check</h3>
+  <label class="ci"><input type="checkbox" data-k="b1"><span>Water (lots)</span></label><label class="ci"><input type="checkbox" data-k="b2"><span>Well Fed food (+5% XP)</span></label><label class="ci"><input type="checkbox" data-k="b3"><span>Bandages / healing potions</span></label><label class="ci"><input type="checkbox" data-k="b4"><span>Mana potions</span></label><label class="ci"><input type="checkbox" data-k="b5"><span>Mining pick + blacksmith hammer</span></label><label class="ci"><input type="checkbox" data-k="b6"><span>Sharpening stone / weightstone</span></label><label class="ci"><input type="checkbox" data-k="b7"><span>Hearthstone</span></label>
+  <div id="customBags"></div>
+  <div class="addrow"><input id="bagNew" placeholder="Add an item…"><button id="bagAdd">Add</button></div>
+  <button id="resetBags" class="ghost">Uncheck all</button></div>
+ <div class="card"><h3>Notes</h3><textarea id="notes" rows="5" placeholder="Where I left off…"></textarea></div>
+</section>
+
+<section id="t-me" class="tab"><h2>My Character</h2><div id="meBox">Loading…</div></section>
+</main>
+<script src="app.js"></script></body></html>
