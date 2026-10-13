@@ -21,10 +21,12 @@ function rotFor(l){const a=[];
  a.push('<b>Judgement</b> on CD (keeps your seal)');
  if(l>=6)a.push('<b>Holy Strike</b> on CD');
  if(l>=20)a.push('<b>Consecration</b> on 3+ mobs (mana-heavy)');
- a.push('Exorcism on Undead/Demons · Hammer of Justice to stun');
- a.push('Low HP: Holy Light · Panic: Divine Protection → Lay on Hands');
- a.push('Buffs: Blessing of Might/Kings + Retribution Aura');
- return `<ol>${a.map(x=>'<li>'+x+'</li>').join('')}</ol><span class="src">Icy Veins Forever Ret · spell levels other than Holy Strike (6) & Consecration (20) not verified</span>`}
+ if(l>=8)a.push('<b>Hammer of Justice</b> (key 5) to stun or interrupt');
+ if(l>=20)a.push('Exorcism (Bottom 4) on Undead/Demons');
+ a.push((l>=20?'Top-up: Flash of Light (key 6) · ':'')+'Low HP: Divine Protection → Holy Light (Top 1-2)'+(l>=10?' · Last resort: Lay on Hands (Top 6)':''));
+ if(l>=10)a.push('Bad pull: Blessing of Protection on yourself and run'+(l>=18?' · Rooted: Blessing of Freedom':''));
+ a.push('Buffs: Bow & Buff ('+(l>=20?'Kings':'Might')+') + Retribution Aura');
+ return `<ol>${a.map(x=>'<li>'+x+'</li>').join('')}</ol><span class="src">Icy Veins Forever Ret</span>`}
 function setLv(l){l=Math.max(1,Math.min(60,l));S.set('lv',l);sel.value=l;$('#curLv').textContent=l;$('#rotTag').textContent='· Lv '+l;$('#rot').innerHTML=linkHTML(rotFor(l));
  $$('.row').forEach(r=>{const c=+r.dataset.lv===l;r.classList.toggle('cur',c);r.classList.toggle('open',c)})}
 sel.onchange=()=>setLv(+sel.value);$('#lvUp').onclick=()=>setLv(+sel.value+1);$('#lvDown').onclick=()=>setLv(+sel.value-1);
@@ -63,8 +65,9 @@ function wfix(x){if(!x)return x;const c=JSON.parse(JSON.stringify(x));if(W!=='sl
 function renderBars(l){const b=wfix(window.BARS[l]),p=wfix(window.BARS[l-1]);const lab={top:['Top','click · combat cooldowns'],mid:['Middle','keys 1-6 · pressed constantly'],bot:['Bottom','long CDs · out of combat']};
  $('#barLv').textContent=l;
  $('#barsBox').innerHTML=['top','mid','bot'].map(r=>`<div class="brow"><div class="blab"><b>${lab[r][0]}</b> ${lab[r][1]}</div><div class="bslots">`+b[r].map((s,i)=>{if(!s)return`<div class="bs empty">${r==='mid'?i+1:''}</div>`;
-  const nw=!p||JSON.stringify(p[r][i])!==JSON.stringify(s);const v=s.n==='Bow & Buff'?{i:SPELLS['Blessing of Might'].i}:(SPELLS[s.n]||{});const tag=v.u?'a':'div';return`<${tag} class="bs${nw?' new':''}${s.u?' unc':''}"${v.u?` href="${v.u}" target="_blank" rel="noopener"`:''} title="${s.n}">${v.i?`<img src="icons/spells/${v.i}.jpg" alt="">`:''}${r==='mid'?`<i>${i+1}</i>`:''}<span>${SH[s.n]||s.n}</span>${nw?'<em>NEW</em>':''}</${tag}>`}).join('')+'</div></div>').join('')}
-const _setLv=setLv;setLv=function(l){_setLv(l);renderBars(+sel.value)};renderBars(+sel.value);
+  const nw=!p||JSON.stringify(p[r][i])!==JSON.stringify(s);const v=s.n==='Bow & Buff'?{i:SPELLS[l>=20?'Blessing of Kings':'Blessing of Might'].i}:(SPELLS[s.n]||{});const tag=v.u?'a':'div';return`<${tag} class="bs${nw?' new':''}${s.u?' unc':''}"${v.u?` href="${v.u}" target="_blank" rel="noopener"`:''} title="${s.n}">${v.i?`<img src="icons/spells/${v.i}.jpg" alt="">`:''}${r==='mid'?`<i>${i+1}</i>`:''}<span>${SH[s.n]||s.n}</span>${nw?'<em>NEW</em>':''}</${tag}>`}).join('')+'</div></div>').join('')}
+function macroUpd(l){const n=l>=20?'Blessing of Kings':'Blessing of Might';const t=$('#macroTxt');if(t)t.textContent='#showtooltip '+n+'\n/cast '+n+'\n/bow';const ic=$('#macroIc');if(ic)ic.src='icons/spells/'+SPELLS[n].i+'.jpg'}
+const _setLv=setLv;setLv=function(l){_setLv(l);renderBars(+sel.value);macroUpd(+sel.value)};renderBars(+sel.value);macroUpd(+sel.value);
 
 $('#copyMacro')&&($('#copyMacro').onclick=async e=>{const t=$('#macroTxt').textContent;try{await navigator.clipboard.writeText(t)}catch(_){const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();document.execCommand('copy');a.remove()}e.target.textContent='Copied ✓';setTimeout(()=>e.target.textContent='Copy macro',1500)});
 (()=>{const o=new URLSearchParams(location.search).get('only');if(o)$$('.row').forEach(r=>{if(r.dataset.lv!==o)r.style.display='none'})})();

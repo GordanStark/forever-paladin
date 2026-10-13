@@ -64,12 +64,11 @@ for _lv in sorted(TR):
 ITEM = {"Food": 1, "Water": 1, "Hearthstone": 1, "Bow & Buff": 4}
 # each slot: candidates in order (name, unconfirmed_placement); latest learned wins
 BARS = {
- "top": [[("Hammer of Justice",0)], [("Blessing of Protection",0)], [("Lay on Hands",0)],
-         [("Divine Protection",0),("Divine Shield",1)], [("Bow & Buff",0)],
-         [("Purify",0),("Cleanse",1)]],
+ "top": [[("Divine Protection",0),("Divine Shield",1)], [("Holy Light",0)], [("Blessing of Protection",0)],
+         [("Blessing of Freedom",0)], [("Purify",0),("Cleanse",1)], [("Lay on Hands",0)]],
  "mid": [[("Seal of Righteousness",0),("Holy Strike",0)], [("Judgement",0)], [("Seal of Righteousness@6",0),("Seal of Command",0)],
-         [("Consecration",0)], [("Exorcism",0),("Hammer of Wrath",1)], [("Holy Light@1",0),("Flash of Light",0)]],
- "bot": [[("Food",0)], [("Water",0)], [("Holy Light@20",0)], [("Blessing of Might",0),("Blessing of Kings",0)],
+         [("Consecration",0)], [("Hammer of Justice",0)], [("Flash of Light",0)]],
+ "bot": [[("Food",0)], [("Water",0)], [("Bow & Buff",0)], [("Exorcism",0)],
          [("Redemption",0)], [("Hearthstone",0)]],
 }
 def bars_at(lv):
@@ -94,8 +93,8 @@ def bar_changes(lv):
             if a[r][i] != b[r][i] and a[r][i]:
                 ch.append(f'{lab} {i+1 if r=="mid" else i+1}: {a[r][i]["n"]}' + (" (unconfirmed)" if a[r][i]["u"] else ""))
     return ch
-def icon_of(n):
-    if n == "Bow & Buff": return SPELLS["Blessing of Might"]["i"]
+def icon_of(n, lv=1):
+    if n == "Bow & Buff": return SPELLS["Blessing of Kings" if lv >= 20 else "Blessing of Might"]["i"]
     v = SPELLS.get(n); return v["i"] if v else None
 def mini_bars(lv):
     a, b = BARDATA[lv], BARDATA.get(lv-1)
@@ -104,7 +103,7 @@ def mini_bars(lv):
         for i, x in enumerate(a[r]):
             if not x: h += '<span class="mb e"></span>'; continue
             nw = (b is None) or b[r][i] != x
-            ic = icon_of(x["n"])
+            ic = icon_of(x["n"], lv)
             h += f'<span class="mb{" n" if nw else ""}{" u" if x["u"] else ""}" title="{E(x["n"])}">' + (f'<img src="icons/spells/{ic}.jpg" alt="" loading="lazy">' if ic else E(x["n"][:3])) + '</span>'
     return h + '</div>'
 rows = []
@@ -231,16 +230,17 @@ PAGE = f'''<!doctype html><html lang="en"><head><meta charset="utf-8">
 <section id="t-bars" class="tab"><h2>My Bars · Lv <span id="barLv"></span></h2>
  <p class="note">Change the level in the top bar. Gold outline = new at this level. Dashed = placement for 31-60 not confirmed.</p>
  <div id="barsBox"></div>
- <div class="card"><h3><img class="ic" src="icons/spells/{SPELLS["Blessing of Might"]["i"]}.jpg" alt="">Bow &amp; Buff macro (Top 5, from Lv 4)</h3>
+ <div class="card"><h3><img id="macroIc" class="ic" src="icons/spells/{SPELLS["Blessing of Might"]["i"]}.jpg" alt="">Bow &amp; Buff macro (Bottom 3, from Lv 4)</h3>
  <pre id="macroTxt">#showtooltip Blessing of Might
 /cast Blessing of Might
 /bow</pre><button id="copyMacro" class="ghost">Copy macro</button>
- <p class="src">Make it in-game with /macro, then New. Character macros hold 255 characters, and this one is far under. That limit is from standard WoW and wasn't checked against Forever.</p></div>
+ <p class="src">Make it in-game with /macro, then New. It casts Blessing of Might before Lv 20 and Blessing of Kings from Lv 20 (the text above follows your level). Character macros hold 255 characters, and this one is far under. That limit is from standard WoW and wasn't checked against Forever.</p></div>
+ <div class="card"><h3>Not on bars</h3><p class="note">Hammer of Wrath (44), Seal of the Crusader, Blessing of Might/Kings (cast by Bow &amp; Buff), Blessing of Wisdom, Salvation, Light, Sacrifice, auras, Righteous Fury, Turn Undead, Sense Undead, Divine Intervention, Greater Blessings. Drag them from your spellbook if you want them.</p></div>
  <p class="src">Learn levels from <a href="{TFE}">The Forever Era</a> beta client data. Seal of Command needs the talent (taken at 20 in the plan). Middle 3 follows the weapon toggle. Spells after 30 can't be tested in the beta.</p>
 </section>
 <section id="t-back" class="tab"><h2>Back from a break</h2>
  <div class="card big"><h3>30-second rotation</h3><ol>
-  <li>Seal up (SoR before 20, SoC with a slow 2H).</li><li>Judgement on CD (keeps your seal).</li><li>Holy Strike on CD.</li><li>Consecration if 3+ mobs.</li><li>Low health: Holy Light. Panic: Divine Protection, then Lay on Hands.</li><li>Buffs: Might/Kings + Ret Aura.</li></ol></div>
+  <li>Seal up (SoR before 20, SoC with a slow 2H).</li><li>Judgement on CD (keeps your seal).</li><li>Holy Strike on CD.</li><li>Consecration if 3+ mobs.</li><li>Top-up: Flash of Light. Low health: Divine Protection, then Holy Light. Last resort: Lay on Hands.</li><li>Bad pull: Blessing of Protection on yourself and run.</li><li>Buffs: Bow &amp; Buff (Might, Kings from 20) + Ret Aura.</li></ol></div>
  <div class="card"><h3>Bag check</h3>
   {ck("b1","Water (lots)")}{ck("b2","Well Fed food (+5% XP)")}{ck("b3","Bandages / healing potions")}{ck("b4","Mana potions")}{ck("b5","Mining pick + blacksmith hammer")}{ck("b6","Sharpening stone / weightstone")}{ck("b7","Hearthstone")}
   <div id="customBags"></div>
@@ -284,6 +284,6 @@ PAGE = linkify(PAGE)
 open("index.html", "w").write(PAGE)
 icons = sorted({v["i"] for v in SPELLS.values()})
 sw = open("sw.js").read()
-sw = _re.sub(r"const C='pal-v\d+',F=\[[^\]]*\]", "const C='pal-v10',F=" + json.dumps(['./','index.html','style.css','app.js','data.json','manifest.webmanifest','icons/icon-180.png','icons/icon-192.png','icons/icon-512.png'] + [f"icons/spells/{i}.jpg" for i in icons]), sw)
+sw = _re.sub(r"const C='pal-v\d+',F=\[[^\]]*\]", "const C='pal-v11',F=" + json.dumps(['./','index.html','style.css','app.js','data.json','manifest.webmanifest','icons/icon-180.png','icons/icon-192.png','icons/icon-512.png'] + [f"icons/spells/{i}.jpg" for i in icons]), sw)
 open("sw.js","w").write(sw)
 print("built", len(PAGE))
