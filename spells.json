@@ -1,0 +1,415 @@
+{
+"Devotion Aura": {
+"i": "spell_holy_devotionaura",
+"u": "https://theforeverera.com/en/spells/paladin/devotion-aura/"
+},
+"Holy Light": {
+"i": "spell_holy_holybolt",
+"u": "https://theforeverera.com/en/spells/paladin/holy-light/"
+},
+"Seal of Righteousness": {
+"i": "ability_thunderbolt",
+"u": "https://theforeverera.com/en/spells/paladin/seal-of-righteousness/"
+},
+"Blessing of Might": {
+"i": "spell_holy_fistofjustice",
+"u": "https://theforeverera.com/en/spells/paladin/blessing-of-might/"
+},
+"Judgement": {
+"i": "spell_holy_righteousfury",
+"u": "https://theforeverera.com/en/spells/paladin/judgement/"
+},
+"Divine Protection": {
+"i": "spell_holy_restoration",
+"u": "https://theforeverera.com/en/spells/paladin/divine-protection/"
+},
+"Holy Strike": {
+"i": "classicon_paladin",
+"u": "https://theforeverera.com/en/spells/paladin/holy-strike/",
+"fallback": true
+},
+"Seal of the Crusader": {
+"i": "spell_holy_holysmite",
+"u": "https://theforeverera.com/en/spells/paladin/seal-of-the-crusader/"
+},
+"Hammer of Justice": {
+"i": "spell_holy_sealofmight",
+"u": "https://theforeverera.com/en/spells/paladin/hammer-of-justice/"
+},
+"Purify": {
+"i": "spell_holy_purify",
+"u": "https://theforeverera.com/en/spells/paladin/purify/"
+},
+"Blessing of Protection": {
+"i": "spell_holy_sealofprotection",
+"u": "https://theforeverera.com/en/spells/paladin/blessing-of-protection/"
+},
+"Lay on Hands": {
+"i": "spell_holy_layonhands",
+"u": "https://theforeverera.com/en/spells/paladin/lay-on-hands/"
+},
+"Seal of Fury": {
+"i": "spell_holy_retributionaura",
+"u": "https://theforeverera.com/en/spells/paladin/seal-of-fury/"
+},
+"Redemption": {
+"i": "spell_holy_resurrection",
+"u": "https://theforeverera.com/en/spells/paladin/redemption/"
+},
+"Blessing of Wisdom": {
+"i": "spell_holy_sealofwisdom",
+"u": "https://theforeverera.com/en/spells/paladin/blessing-of-wisdom/"
+},
+"Retribution Aura": {
+"i": "spell_holy_auraoflight",
+"u": "https://theforeverera.com/en/spells/paladin/retribution-aura/"
+},
+"Righteous Fury": {
+"i": "spell_holy_sealoffury",
+"u": "https://theforeverera.com/en/spells/paladin/righteous-fury/"
+},
+"Blessing of Freedom": {
+"i": "spell_holy_sealofvalor",
+"u": "https://theforeverera.com/en/spells/paladin/blessing-of-freedom/"
+},
+"Blessing of Kings": {
+"i": "spell_magic_magearmor",
+"u": "https://theforeverera.com/en/spells/paladin/blessing-of-kings/"
+},
+"Consecration": {
+"i": "spell_holy_innerfire",
+"u": "https://theforeverera.com/en/spells/paladin/consecration/"
+},
+"Exorcism": {
+"i": "spell_holy_excorcism_02",
+"u": "https://theforeverera.com/en/spells/paladin/exorcism/"
+},
+"Flash of Light": {
+"i": "spell_holy_flashheal",
+"u": "https://theforeverera.com/en/spells/paladin/flash-of-light/"
+},
+"Sense Undead": {
+"i": "spell_holy_senseundead",
+"u": "https://theforeverera.com/en/spells/paladin/sense-undead/"
+},
+"Seal of Command": {
+"i": "ability_warrior_innerrage",
+"u": "https://theforeverera.com/en/spells/paladin/seal-of-command/"
+},
+"Voice of Truth": {
+"i": "inv_misc_horn_03",
+"u": "https://theforeverera.com/en/spells/paladin/voice-of-truth/"
+},
+"Concentration Aura": {
+"i": "spell_holy_mindsooth",
+"u": "https://theforeverera.com/en/spells/paladin/concentration-aura/"
+},
+"Seal of Justice": {
+"i": "spell_holy_sealofwrath",
+"u": "https://theforeverera.com/en/spells/paladin/seal-of-justice/"
+},
+"Turn Undead": {
+"i": "spell_holy_turnundead",
+"u": "https://theforeverera.com/en/spells/paladin/turn-undead/"
+},
+"Divine Favor": {
+"i": "spell_holy_heal",
+"u": "https://theforeverera.com/en/spells/paladin/divine-favor/"
+},
+"Swift Judgement": {
+"i": "ability_paladin_judgementred",
+"u": "https://theforeverera.com/en/spells/paladin/swift-judgement/"
+},
+"Blessing of Salvation": {
+"i": "spell_holy_sealofsalvation",
+"u": "https://theforeverera.com/en/spells/paladin/blessing-of-salvation/"
+},
+"Shadow Resistance Aura": {
+"i": "spell_shadow_sealofkings",
+"u": "https://theforeverera.com/en/spells/paladin/shadow-resistance-aura/"
+},
+"Divine Intervention": {
+"i": "spell_nature_timestop",
+"u": "https://theforeverera.com/en/spells/paladin/divine-intervention/"
+},
+"Seal of Light": {
+"i": "spell_holy_healingaura",
+"u": "https://theforeverera.com/en/spells/paladin/seal-of-light/"
+},
+"Holy Shock": {
+"i": "spell_holy_searinglight",
+"u": "https://theforeverera.com/en/spells/paladin/holy-shock/"
+},
+"Repentance": {
+"i": "spell_holy_prayerofhealing",
+"u": "https://theforeverera.com/en/spells/paladin/repentance/"
+},
+"Templar's Bulwark": {
+"i": "ability_paladin_shieldofthetemplar",
+"u": "https://theforeverera.com/en/spells/paladin/templars-bulwark/"
+},
+"Blessing of Sanctuary": {
+"i": "spell_nature_lightningshield",
+"u": "https://theforeverera.com/en/spells/paladin/blessing-of-sanctuary/"
+},
+"Sanctity Aura": {
+"i": "spell_holy_mindvision",
+"u": "https://theforeverera.com/en/spells/paladin/sanctity-aura/"
+},
+"Frost Resistance Aura": {
+"i": "spell_frost_wizardmark",
+"u": "https://theforeverera.com/en/spells/paladin/frost-resistance-aura/"
+},
+"Divine Shield": {
+"i": "spell_holy_divineintervention",
+"u": "https://theforeverera.com/en/spells/paladin/divine-shield/"
+},
+"Fire Resistance Aura": {
+"i": "spell_fire_sealoffire",
+"u": "https://theforeverera.com/en/spells/paladin/fire-resistance-aura/"
+},
+"Seal of Wisdom": {
+"i": "spell_holy_righteousnessaura",
+"u": "https://theforeverera.com/en/spells/paladin/seal-of-wisdom/"
+},
+"Blessing of Light": {
+"i": "spell_holy_prayerofhealing02",
+"u": "https://theforeverera.com/en/spells/paladin/blessing-of-light/"
+},
+"Hammer of the Righteous": {
+"i": "ability_paladin_hammeroftherighteous",
+"u": "https://theforeverera.com/en/spells/paladin/hammer-of-the-righteous/"
+},
+"Summon Warhorse (Human, Dwarf)": {
+"i": "spell_nature_swiftness",
+"u": "https://theforeverera.com/en/spells/paladin/summon-warhorse-human-dwarf/"
+},
+"Summon Warhorse": {
+"i": "spell_nature_swiftness",
+"u": "https://theforeverera.com/en/spells/paladin/summon-warhorse/"
+},
+"Holy Shield": {
+"i": "spell_holy_blessingofprotection",
+"u": "https://theforeverera.com/en/spells/paladin/holy-shield/"
+},
+"Light's Vigil": {
+"i": "ability_paladin_judgementofthepure",
+"u": "https://theforeverera.com/en/spells/paladin/lights-vigil/"
+},
+"Cleanse": {
+"i": "spell_holy_renew",
+"u": "https://theforeverera.com/en/spells/paladin/cleanse/"
+},
+"Hammer of Wrath": {
+"i": "ability_thunderclap",
+"u": "https://theforeverera.com/en/spells/paladin/hammer-of-wrath/"
+},
+"Blessing of Sacrifice": {
+"i": "spell_holy_sealofsacrifice",
+"u": "https://theforeverera.com/en/spells/paladin/blessing-of-sacrifice/"
+},
+"Holy Wrath": {
+"i": "spell_holy_excorcism",
+"u": "https://theforeverera.com/en/spells/paladin/holy-wrath/"
+},
+"Greater Blessing of Might": {
+"i": "spell_holy_greaterblessingofkings",
+"u": "https://theforeverera.com/en/spells/paladin/greater-blessing-of-might/"
+},
+"Greater Blessing of Wisdom": {
+"i": "spell_holy_greaterblessingofwisdom",
+"u": "https://theforeverera.com/en/spells/paladin/greater-blessing-of-wisdom/"
+},
+"Greater Blessing of Kings": {
+"i": "spell_magic_greaterblessingofkings",
+"u": "https://theforeverera.com/en/spells/paladin/greater-blessing-of-kings/"
+},
+"Greater Blessing of Light": {
+"i": "spell_holy_greaterblessingoflight",
+"u": "https://theforeverera.com/en/spells/paladin/greater-blessing-of-light/"
+},
+"Greater Blessing of Salvation": {
+"i": "spell_holy_greaterblessingofsalvation",
+"u": "https://theforeverera.com/en/spells/paladin/greater-blessing-of-salvation/"
+},
+"Summon Charger": {
+"i": "ability_mount_charger",
+"u": "https://theforeverera.com/en/spells/paladin/summon-charger/"
+},
+"Greater Blessing of Sanctuary": {
+"i": "spell_holy_greaterblessingofsanctuary",
+"u": "https://theforeverera.com/en/spells/paladin/greater-blessing-of-sanctuary/"
+},
+"Benediction": {
+"i": "spell_frost_windwalkon",
+"u": "https://theforeverera.com/en/talents/paladin/benediction/"
+},
+"Conviction": {
+"i": "spell_holy_retributionaura",
+"u": "https://theforeverera.com/en/talents/paladin/conviction/"
+},
+"Sanctified Judgement": {
+"i": "ability_paladin_judgementblue",
+"u": "https://theforeverera.com/en/talents/paladin/sanctified-judgement/"
+},
+"Pursuit of Justice": {
+"i": "spell_holy_persuitofjustice",
+"u": "https://theforeverera.com/en/talents/paladin/pursuit-of-justice/"
+},
+"Sacred Arbiter": {
+"i": "inv_sword_08",
+"u": "https://theforeverera.com/en/talents/paladin/sacred-arbiter/"
+},
+"Vindication": {
+"i": "spell_holy_vindication",
+"u": "https://theforeverera.com/en/talents/paladin/vindication/"
+},
+"Vengeance": {
+"i": "ability_racial_avatar",
+"u": "https://theforeverera.com/en/talents/paladin/vengeance/"
+},
+"Holy Conduit": {
+"i": "spell_holy_devineaegis",
+"u": "https://theforeverera.com/en/talents/paladin/holy-conduit/"
+},
+"Improved Judgement": {
+"i": "spell_holy_righteousfury",
+"u": "https://theforeverera.com/en/talents/paladin/improved-judgement/"
+},
+"Redoubt": {
+"i": "ability_defend",
+"u": "https://theforeverera.com/en/talents/paladin/redoubt/"
+},
+"Precision": {
+"i": "ability_rogue_ambush",
+"u": "https://theforeverera.com/en/talents/paladin/precision/"
+},
+"Anticipation": {
+"i": "spell_magic_lesserinvisibilty",
+"u": "https://theforeverera.com/en/talents/paladin/anticipation/"
+},
+"Shield Specialization": {
+"i": "inv_shield_06",
+"u": "https://theforeverera.com/en/talents/paladin/shield-specialization/"
+},
+"Improved Seal of Fury": {
+"i": "spell_holy_righteousnessaura",
+"u": "https://theforeverera.com/en/talents/paladin/improved-seal-of-fury/"
+},
+"Champion of the Light": {
+"i": "ability_paladin_enlightenedjudgements",
+"u": "https://theforeverera.com/en/talents/paladin/champion-of-the-light/"
+},
+"Two-Handed Weapon Specialization": {
+"i": "inv_hammer_04",
+"u": "https://theforeverera.com/en/talents/paladin/two-handed-weapon-specialization/"
+},
+"Food": {
+"i": "inv_misc_food_11",
+"u": null
+},
+"Water": {
+"i": "inv_drink_07",
+"u": null
+},
+"Hearthstone": {
+"i": "inv_misc_rune_01",
+"u": null
+},
+"_human": {
+"i": "achievement_character_human_male",
+"u": null
+},
+"_paladin": {
+"i": "classicon_paladin",
+"u": null
+},
+"_ret": {
+"i": "spell_holy_auraoflight",
+"u": null
+},
+"_prot": {
+"i": "spell_holy_devotionaura",
+"u": null
+},
+"_holy": {
+"i": "spell_holy_holybolt",
+"u": null
+},
+"_elwynn": {
+"i": "achievement_zone_elwynnforest",
+"u": null
+},
+"_westfall": {
+"i": "achievement_zone_westfall_01",
+"u": null
+},
+"_lochmodan": {
+"i": "achievement_zone_lochmodan",
+"u": null
+},
+"_redridge": {
+"i": "achievement_zone_redridgemountains",
+"u": null
+},
+"_duskwood": {
+"i": "achievement_zone_duskwood",
+"u": null
+},
+"_wetlands": {
+"i": "achievement_zone_wetlands_01",
+"u": null
+},
+"_ashenvale": {
+"i": "achievement_zone_ashenvale_01",
+"u": null
+},
+"_hillsbrad": {
+"i": "achievement_zone_hillsbradfoothills",
+"u": null
+},
+"_stv": {
+"i": "achievement_zone_stranglethorn_01",
+"u": null
+},
+"_arathi": {
+"i": "achievement_zone_arathihighlands_01",
+"u": null
+},
+"_tanaris": {
+"i": "achievement_zone_tanaris_01",
+"u": null
+},
+"_ungoro": {
+"i": "achievement_zone_ungorocrater_01",
+"u": null
+},
+"_winterspring": {
+"i": "achievement_zone_winterspring",
+"u": null
+},
+"_epl": {
+"i": "achievement_zone_easternplaguelands",
+"u": null
+},
+"_mining": {
+"i": "trade_mining",
+"u": null
+},
+"_bs": {
+"i": "trade_blacksmithing",
+"u": null
+},
+"_cooking": {
+"i": "inv_misc_food_15",
+"u": null
+},
+"_firstaid": {
+"i": "spell_holy_sealofsacrifice",
+"u": null
+},
+"_sword": {
+"i": "inv_sword_04",
+"u": null
+}
+}

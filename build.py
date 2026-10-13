@@ -27,6 +27,15 @@ MILESTONE = {
  60: ["Max level. Endgame gear/talents not published yet."],
 }
 ZONES = [(1,"Northshire / Elwynn Forest"),(10,"Westfall / Loch Modan"),(18,"Redridge Mountains"),(20,"Duskwood / Wetlands"),(25,"Ashenvale / Wetlands"),(30,"Hillsbrad / Alterac & beyond"),(40,"Stranglethorn / Arathi / Desolace"),(45,"Tanaris / Feralas / Hinterlands"),(50,"Un'Goro / Felwood / Searing Gorge"),(55,"Winterspring / Plaguelands")]
+SPELLS = json.load(open("spells.json"))
+ZICON = {"Northshire":"_elwynn","Westfall":"_westfall","Redridge":"_redridge","Duskwood":"_duskwood","Ashenvale":"_ashenvale","Hillsbrad":"_hillsbrad","Stranglethorn":"_stv","Tanaris":"_tanaris","Un'Goro":"_ungoro","Winterspring":"_winterspring"}
+def icimg(key, cls="ic"):
+    v = SPELLS.get(key)
+    return f'<img class="{cls}" src="icons/spells/{v["i"]}.jpg" alt="" loading="lazy">' if v else ""
+def zicon(z):
+    for k, v in ZICON.items():
+        if z.startswith(k): return icimg(v, "ic zi")
+    return ""
 def zone(lv):
     z = ZONES[0][1]
     for a, n in ZONES:
@@ -100,7 +109,7 @@ for lv in range(1, 61):
     rows.append(f'''<div class="row" data-lv="{lv}" id="lv{lv}">
  <div class="row-head"><button class="chk" aria-label="Mark level {lv} done" data-k="lv{lv}"></button>
   <span class="lv">{lv}</span><span class="sum">{'<span class="tb">Trainer</span> ' if lv in TR else ''}{E(summ)}</span><span class="zone">{E(zone(lv))}</span></div>
- <div class="row-body">{("<div class=\"barch\"><b>Bars</b> " + " · ".join(E(c) for c in bar_changes(lv)) + "</div>") if bar_changes(lv) else ""}{trainer_html(lv)}{tal}<ul>{lis}</ul><div class="zline">Zone: {E(zone(lv))} <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+ <div class="row-body">{("<div class=\"barch\"><b>Bars</b> " + " · ".join(E(c) for c in bar_changes(lv)) + "</div>") if bar_changes(lv) else ""}{trainer_html(lv)}{tal}<ul>{lis}</ul><div class="zline">{zicon(zone(lv))}Zone: {E(zone(lv))} <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
 </div>''')
 
 def ck(key, text, sub=""):
@@ -120,7 +129,7 @@ PAGE = f'''<!doctype html><html lang="en"><head><meta charset="utf-8">
 <link rel="manifest" href="manifest.webmanifest"><link rel="stylesheet" href="style.css">
 </head><body>
 <header class="bar">
- <div class="bar-top"><div class="who"><b>Gordan Stark</b><span>Human Ret Paladin · Lv <span id="curLv">1</span></span></div>
+ <div class="bar-top"><div class="who"><span class="crest">{icimg("_human","ci1")}{icimg("_paladin","ci1")}{icimg("_ret","ci1")}</span><b>Gordan Stark</b><span>Human Ret Paladin · Lv <span id="curLv">1</span></span></div>
   <div class="lvpick"><button id="lvDown" aria-label="Level down">−</button><select id="lvSel" aria-label="Current level"></select><button id="lvUp" aria-label="Level up">+</button></div></div>
  <button id="rotBtn" class="rotbtn" aria-expanded="false">⚔ Rotation <span id="rotTag"></span></button>
  <div id="rot" class="rot" hidden></div>
@@ -133,7 +142,7 @@ PAGE = f'''<!doctype html><html lang="en"><head><meta charset="utf-8">
  {''.join(rows)}
 </section>
 
-<section id="t-ret" class="tab"><h2>Retribution</h2>
+<section id="t-ret" class="tab"><h2>{icimg("_ret","hic")}Retribution</h2>
  <div class="card"><h3>Talents to 30</h3>{talent_list}
  <p class="src">Talent names match the Icy Veins "Retribution Focused" build (Benediction, Sanctified Judgement, Pursuit of Justice, Sacred Arbiter, Seal of Command, Vengeance). Icy Veins also highlights <b>Holy Conduit</b> and <b>Improved Judgement</b>, which aren't in this plan. Icy Veins doesn't print a level-by-level order, so double-check it in their calculator. <a href="{IV}">Icy Veins</a></p></div>
  <div class="card"><h3>Rotation</h3><ol>
@@ -178,13 +187,13 @@ PAGE = f'''<!doctype html><html lang="en"><head><meta charset="utf-8">
 </section>
 
 <section id="t-prof" class="tab"><h2>Professions</h2>
- <div class="card"><h3>Mining + Blacksmithing ✔</h3><p>Icy Veins' top leveling combo for Ret. You craft your own mail and weapons, and Forever's Merchant's Favor recipes are some of the best gear at 30.</p>
+ <div class="card"><h3>{icimg("_mining")}Mining + {icimg("_bs")}Blacksmithing ✔</h3><p>Icy Veins' top leveling combo for Ret. You craft your own mail and weapons, and Forever's Merchant's Favor recipes are some of the best gear at 30.</p>
  <p>Bonus: sharpening stones and weightstones for your weapon.</p></div>
  <div class="card"><h3>Secondary</h3><ul><li><b>Cooking:</b> Well Fed buff food gives stats and <b>+5% XP from kills</b> in Forever. Cooking also makes Campfires.</li><li><b>First Aid:</b> bandages, and in Forever it can make healing potions. It also adds a Stamina First Aid Kit to Campfires.</li></ul>
  <p class="src"><a href="{IV}">Icy Veins Ret</a>, <a href="{IVP}">Icy Veins Prot</a></p></div>
 </section>
 
-<section id="t-prot" class="tab"><h2>Protection (alt spec)</h2>
+<section id="t-prot" class="tab"><h2>{icimg("_prot","hic")}Protection (alt spec)</h2>
  <div class="card"><h3>Dual spec</h3><p><b>Level 40</b>, bought from your class trainer in a capital city. Several sites cite Blizzard's 30 Sep class deep dive for this.</p>
  <p class="src warn">Cost isn't confirmed. One site says 50g, but Blizzard hasn't given a price. The beta caps at 30, so nobody has tested it yet.</p></div>
  <div class="card"><h3>Prep before 40 (bank it)</h3>
@@ -221,8 +230,41 @@ PAGE = f'''<!doctype html><html lang="en"><head><meta charset="utf-8">
  <div class="card"><h3>Notes</h3><textarea id="notes" rows="5" placeholder="Where I left off…"></textarea></div>
 </section>
 
-<section id="t-me" class="tab"><h2>My Character</h2><div id="meBox">Loading…</div></section>
+<section id="t-me" class="tab"><h2>{icimg("_human","hic")}My Character</h2><div id="meBox">Loading…</div>
+<div class="card credits"><h3>Credits</h3><p>Spell, item, class, race and zone icons © Blizzard Entertainment, downloaded once from Wowhead's public icon CDN (wow.zamimg.com) and bundled in this app. Icon choices and spell/talent links: <a href="https://theforeverera.com/en/spells/paladin/levels/" target="_blank" rel="noopener">The Forever Era</a>. Personal, non-commercial fan page; not affiliated with Blizzard.</p></div></section>
 </main>
-<script>window.BARS={json.dumps(BARDATA)};</script><script src="app.js"></script></body></html>'''
+<script>window.SPELLS={json.dumps({k:v for k,v in SPELLS.items() if not k.startswith("_")})};window.BARS={json.dumps(BARDATA)};</script><script src="app.js"></script></body></html>'''
+import re as _re
+NAMES = sorted([k for k in SPELLS if not k.startswith("_") and SPELLS[k]["u"]], key=len, reverse=True)
+NRX = _re.compile(r"(?<![\w'])(" + "|".join(_re.escape(n) for n in NAMES) + r")(?![\w'])")
+def link(n):
+    v = SPELLS[n]
+    return f'<a class="sp" href="{v["u"]}" target="_blank" rel="noopener"><img class="ic" src="icons/spells/{v["i"]}.jpg" alt="" loading="lazy">{E(n)}</a>'
+def linkify(doc):
+    body_start = doc.index("<main>"); body_end = doc.index("</main>")
+    head, body, tail = doc[:body_start], doc[body_start:body_end], doc[body_end:]
+    out = []; st = []
+    VOID = ("img","input","br","meta","link","hr")
+    for part in _re.split(r"(<[^>]+>)", body):
+        if part.startswith("<"):
+            m = _re.match(r"<(/?)([a-z0-9]+)", part.lower())
+            if m:
+                tag = m.group(2)
+                if m.group(1):
+                    while st:
+                        t2, _ = st.pop()
+                        if t2 == tag: break
+                elif tag not in VOID and not part.endswith("/>"):
+                    t = part.lower()
+                    st.append((tag, tag in ("a","textarea","option","script","button") or 'class="sum"' in t or 'class="row-head"' in t))
+            out.append(part)
+        else:
+            out.append(part if any(f for _, f in st) else NRX.sub(lambda m: link(m.group(1)), part))
+    return head + "".join(out) + tail
+PAGE = linkify(PAGE)
 open("index.html", "w").write(PAGE)
+icons = sorted({v["i"] for v in SPELLS.values()})
+sw = open("sw.js").read()
+sw = _re.sub(r"const C='pal-v\d+',F=\[[^\]]*\]", "const C='pal-v6',F=" + json.dumps(['./','index.html','style.css','app.js','data.json','manifest.webmanifest','icons/icon-180.png','icons/icon-192.png','icons/icon-512.png'] + [f"icons/spells/{i}.jpg" for i in icons]), sw)
+open("sw.js","w").write(sw)
 print("built", len(PAGE))

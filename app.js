@@ -1,3 +1,7 @@
+const SPN=Object.keys(window.SPELLS||{}).filter(k=>SPELLS[k].u).sort((a,b)=>b.length-a.length);
+const SPRX=new RegExp("(?<![\\w'])("+SPN.map(n=>n.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|')+")(?![\\w'])","g");
+function spLink(n){const v=SPELLS[n];return `<a class="sp" href="${v.u}" target="_blank" rel="noopener"><img class="ic" src="icons/spells/${v.i}.jpg" alt="">${n}</a>`}
+function linkHTML(h){return h.split(/(<[^>]+>)/).map(p=>p.startsWith('<')?p:p.replace(SPRX,m=>spLink(m))).join('')}
 const S={get:(k,d)=>{try{return JSON.parse(localStorage.getItem('pal:'+k))??d}catch(e){return d}},set:(k,v)=>localStorage.setItem('pal:'+k,JSON.stringify(v))};
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 // tabs
@@ -15,7 +19,7 @@ function rotFor(l){const a=[];
  a.push('Low HP: Holy Light · Panic: Divine Protection → Lay on Hands');
  a.push('Buffs: Blessing of Might/Kings + Retribution Aura');
  return `<ol>${a.map(x=>'<li>'+x+'</li>').join('')}</ol><span class="src">Icy Veins Forever Ret · spell levels other than Holy Strike (6) & Consecration (20) not verified</span>`}
-function setLv(l){l=Math.max(1,Math.min(60,l));S.set('lv',l);sel.value=l;$('#curLv').textContent=l;$('#rotTag').textContent='· Lv '+l;$('#rot').innerHTML=rotFor(l);
+function setLv(l){l=Math.max(1,Math.min(60,l));S.set('lv',l);sel.value=l;$('#curLv').textContent=l;$('#rotTag').textContent='· Lv '+l;$('#rot').innerHTML=linkHTML(rotFor(l));
  $$('.row').forEach(r=>{const c=+r.dataset.lv===l;r.classList.toggle('cur',c);r.classList.toggle('open',c)})}
 sel.onchange=()=>setLv(+sel.value);$('#lvUp').onclick=()=>setLv(+sel.value+1);$('#lvDown').onclick=()=>setLv(+sel.value-1);
 $('#rotBtn').onclick=e=>{const r=$('#rot');r.hidden=!r.hidden;e.currentTarget.setAttribute('aria-expanded',!r.hidden)};
@@ -52,5 +56,5 @@ const SH={'Hammer of Justice':'Hammer of Justice','Blessing of Protection':'Bles
 function renderBars(l){const b=window.BARS[l],p=window.BARS[l-1];const lab={top:['Top','click · combat cooldowns'],mid:['Middle','keys 1-6 · pressed constantly'],bot:['Bottom','long CDs · out of combat']};
  $('#barLv').textContent=l;
  $('#barsBox').innerHTML=['top','mid','bot'].map(r=>`<div class="brow"><div class="blab"><b>${lab[r][0]}</b> ${lab[r][1]}</div><div class="bslots">`+b[r].map((s,i)=>{if(!s)return`<div class="bs empty">${r==='mid'?i+1:''}</div>`;
-  const nw=!p||JSON.stringify(p[r][i])!==JSON.stringify(s);return`<div class="bs${nw?' new':''}${s.u?' unc':''}">${r==='mid'?`<i>${i+1}</i>`:''}<span title="${s.n}">${SH[s.n]||s.n}</span>${nw?'<em>NEW</em>':''}</div>`}).join('')+'</div></div>').join('')}
+  const nw=!p||JSON.stringify(p[r][i])!==JSON.stringify(s);const v=SPELLS[s.n]||{};const tag=v.u?'a':'div';return`<${tag} class="bs${nw?' new':''}${s.u?' unc':''}"${v.u?` href="${v.u}" target="_blank" rel="noopener"`:''} title="${s.n}">${v.i?`<img src="icons/spells/${v.i}.jpg" alt="">`:''}${r==='mid'?`<i>${i+1}</i>`:''}<span>${SH[s.n]||s.n}</span>${nw?'<em>NEW</em>':''}</${tag}>`}).join('')+'</div></div>').join('')}
 const _setLv=setLv;setLv=function(l){_setLv(l);renderBars(+sel.value)};renderBars(+sel.value);
