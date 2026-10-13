@@ -122,7 +122,7 @@ for lv in range(1, 61):
     rows.append(f'''<div class="row" data-lv="{lv}" id="lv{lv}">
  <div class="row-head"><button class="chk" aria-label="Mark level {lv} done" data-k="lv{lv}"></button>
   <span class="lv">{lv}</span><span class="sum">{'<span class="tb">Trainer</span> ' if lv in TR else ''}{E(summ)}</span><span class="zone">{E(zone(lv))}</span></div>
- <div class="row-body">{mini_bars(lv)}{("<div class=\"barch\"><b>Bars</b> " + " · ".join(E(c) for c in bar_changes(lv)) + "</div>") if bar_changes(lv) else ""}{trainer_html(lv)}{tal}<ul>{lis}</ul><div class="zline">{zicon(zone(lv))}Zone: {E(zone(lv))} <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+ <div class="row-body">{("<div class=\"barch\"><b>Bars</b> " + " · ".join(E(c) for c in bar_changes(lv)) + "</div>") if bar_changes(lv) else ""}{trainer_html(lv)}{tal}<ul>{lis}</ul><div class="zline">{zicon(zone(lv))}Zone: {E(zone(lv))} <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
 </div>''')
 
 def ck(key, text, sub=""):
@@ -146,7 +146,7 @@ PAGE = f'''<!doctype html><html lang="en"><head><meta charset="utf-8">
   <div class="lvpick"><button id="lvDown" aria-label="Level down">−</button><select id="lvSel" aria-label="Current level"></select><button id="lvUp" aria-label="Level up">+</button></div></div>
  <button id="rotBtn" class="rotbtn" aria-expanded="false">⚔ Rotation <span id="rotTag"></span></button>
  <div id="rot" class="rot" hidden></div>
- <nav class="tabs"><a href="#guide">1-60</a><a href="#ret">Ret</a><a href="#gear">Gear</a><a href="#prof">Profs</a><a href="#prot">Prot</a><a href="#bars">Bars</a><a href="#back">Break</a><a href="#me">Me</a></nav>
+ <nav class="tabs"><a href="#guide">1-60</a><a href="#bars">Bars</a><a href="#ret">Ret</a><a href="#gear">Gear</a><a href="#prof">Profs</a><a href="#prot">Prot</a><a href="#back">Break</a><a href="#me">Me</a></nav>
 </header>
 <main>
 <section id="t-guide" class="tab"><h2>Leveling 1-60</h2>
@@ -283,6 +283,6 @@ PAGE = linkify(PAGE)
 open("index.html", "w").write(PAGE)
 icons = sorted({v["i"] for v in SPELLS.values()})
 sw = open("sw.js").read()
-sw = _re.sub(r"const C='pal-v\d+',F=\[[^\]]*\]", "const C='pal-v8',F=" + json.dumps(['./','index.html','style.css','app.js','data.json','manifest.webmanifest','icons/icon-180.png','icons/icon-192.png','icons/icon-512.png'] + [f"icons/spells/{i}.jpg" for i in icons]), sw)
+sw = _re.sub(r"const C='pal-v\d+',F=\[[^\]]*\]", "const C='pal-v9',F=" + json.dumps(['./','index.html','style.css','app.js','data.json','manifest.webmanifest','icons/icon-180.png','icons/icon-192.png','icons/icon-512.png'] + [f"icons/spells/{i}.jpg" for i in icons]), sw)
 open("sw.js","w").write(sw)
 print("built", len(PAGE))
