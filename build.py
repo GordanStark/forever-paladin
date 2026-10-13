@@ -21,7 +21,7 @@ MILESTONE = {
  5: ["Pick up Mining at a trainer; Blacksmithing in Goldshire/Stormwind. Cooking + First Aid too."],
  6: ["Holy Strike unlocked — press it on cooldown when you have mana. [Icy Veins]"],
  10: ["Talents open. Head toward Westfall / Loch Modan.", "Equip the slowest two-hander you can find (sword ideal)."],
- 20: ["Consecration — your first AoE. Mana-hungry: 2-3 mobs max solo. [Icy Veins]", "Seal of Command talent — swap from SoR if your 2H is slow."],
+ 20: ["Consecration — your first AoE. Mana-hungry: 2-3 mobs max solo. [Icy Veins]", "Seal of Command talent (best with a slow 2H; see weapon toggle)."],
  30: ["Beta cap. Check Merchant's Favor Blacksmithing recipes (Crusader's set). [Icy Veins]", "Shockadin (Holy Shock) build becomes possible — not our plan."],
  40: ["Dual Specialization reportedly opens (Ret + Prot). See Prot tab. [unconfirmed cost]"],
  60: ["Max level. Endgame gear/talents not published yet."],
@@ -144,6 +144,7 @@ PAGE = f'''<!doctype html><html lang="en"><head><meta charset="utf-8">
 <header class="bar">
  <div class="bar-top"><div class="who"><span class="crest">{icimg("_human","ci1")}{icimg("_paladin","ci1")}{icimg("_ret","ci1")}</span><b>Gordan Stark</b><span>Human Ret Paladin · Lv <span id="curLv">1</span></span></div>
   <div class="lvpick"><button id="lvDown" aria-label="Level down">−</button><select id="lvSel" aria-label="Current level"></select><button id="lvUp" aria-label="Level up">+</button></div></div>
+ <div class="wpn" role="group" aria-label="Weapon"><button data-w="slow">Slow 2H (3.0+)</button><button data-w="fast">Fast weapon</button><button data-w="shield">1H + Shield</button></div>
  <button id="rotBtn" class="rotbtn" aria-expanded="false">⚔ Rotation <span id="rotTag"></span></button>
  <div id="rot" class="rot" hidden></div>
  <nav class="tabs"><a href="#guide">1-60</a><a href="#bars">Bars</a><a href="#ret">Ret</a><a href="#gear">Gear</a><a href="#prof">Profs</a><a href="#prot">Prot</a><a href="#back">Break</a><a href="#me">Me</a></nav>
@@ -158,7 +159,7 @@ PAGE = f'''<!doctype html><html lang="en"><head><meta charset="utf-8">
 <section id="t-ret" class="tab"><h2>{icimg("_ret","hic")}Retribution</h2>
  <div class="card"><h3>Talents to 30</h3>{talent_list}
  <p class="src">Talent names match the Icy Veins "Retribution Focused" build (Benediction, Sanctified Judgement, Pursuit of Justice, Sacred Arbiter, Seal of Command, Vengeance). Icy Veins also highlights <b>Holy Conduit</b> and <b>Improved Judgement</b>, which aren't in this plan. Icy Veins doesn't print a level-by-level order, so double-check it in their calculator. <a href="{IV}">Icy Veins</a></p></div>
- <div class="card"><h3>Rotation</h3><ol>
+ <div class="card"><h3>Rotation</h3><div id="sealAdvice" class="seal"></div><ol>
   <li>Always keep a Seal up. <b>Before 20:</b> Seal of Righteousness. <b>20+:</b> Seal of Command with a slow two-hander and no on-hit effect. SoR is still better with high Spell Power, a fast weapon, or "Strike of the Hydra" gear.</li>
   <li><b>Judgement</b> on cooldown. It does <b>not</b> use up your Seal in Forever.</li>
   <li><b>Holy Strike</b> on cooldown (from level 6).</li>
@@ -191,7 +192,7 @@ PAGE = f'''<!doctype html><html lang="en"><head><meta charset="utf-8">
   <li>Strength</li><li>Intellect</li><li>Agility (fine if it's there, don't chase it)</li><li>Stamina</li><li>Spirit</li></ol>
   <p>Items with <b>both Strength and Spell Power</b> beat items with only one. Greens "of Holy Wrath" can be great.</p>
   <p class="src warn">This is different from the earlier shorthand (Str &gt; Crit &gt; Stam &gt; Int, skip Agi/Spirit). On Icy Veins, Spell Power ranks above Strength and Stamina sits low. Stamina still keeps you safer solo. <a href="{IV}">Icy Veins</a></p></div>
- <div class="card"><h3>Weapon</h3><p>Two-hander. A <b>sword</b> gets Human Sword Specialization (+2% crit). Maces and axes are fine if they hit harder.</p>
+ <div class="card"><h3>Weapon</h3><p id="wpnNote" class="seal"></p><p>Two-hander. A <b>sword</b> gets Human Sword Specialization (+2% crit). Maces and axes are fine if they hit harder.</p>
  <p>Level-30 options: Manual Crowd Pummeler (Gnomeregan), Strike of the Hydra (BFD, Aku'mai), Boneslicer (Stockades, Dextren Ward), Corpsemaker (RFK, Overlord Ramtusk), Rock Pulverizer (Badlands, Alliance quest).</p></div>
  <div class="card"><h3>Blacksmithing pieces (Merchant's Favor recipes)</h3><ul>
   <li>Crusader's Chain Helm</li><li>Crusader's Silvered Chain Shirt</li><li>Justicar's Belt / Crusader's Chain Belt</li><li>Crusader's Silvered Chain Leggings</li><li>Crusader's Boots</li></ul>
@@ -235,7 +236,7 @@ PAGE = f'''<!doctype html><html lang="en"><head><meta charset="utf-8">
 /cast Blessing of Might
 /bow</pre><button id="copyMacro" class="ghost">Copy macro</button>
  <p class="src">Make it in-game with /macro, then New. Character macros hold 255 characters, and this one is far under. That limit is from standard WoW and wasn't checked against Forever.</p></div>
- <p class="src">Learn levels from <a href="{TFE}">The Forever Era</a> beta client data. Seal of Command needs the talent (taken at 20 in your plan). Spells after 30 can't be tested in the beta.</p>
+ <p class="src">Learn levels from <a href="{TFE}">The Forever Era</a> beta client data. Seal of Command needs the talent (taken at 20 in the plan). Middle 3 follows the weapon toggle. Spells after 30 can't be tested in the beta.</p>
 </section>
 <section id="t-back" class="tab"><h2>Back from a break</h2>
  <div class="card big"><h3>30-second rotation</h3><ol>
@@ -283,6 +284,6 @@ PAGE = linkify(PAGE)
 open("index.html", "w").write(PAGE)
 icons = sorted({v["i"] for v in SPELLS.values()})
 sw = open("sw.js").read()
-sw = _re.sub(r"const C='pal-v\d+',F=\[[^\]]*\]", "const C='pal-v9',F=" + json.dumps(['./','index.html','style.css','app.js','data.json','manifest.webmanifest','icons/icon-180.png','icons/icon-192.png','icons/icon-512.png'] + [f"icons/spells/{i}.jpg" for i in icons]), sw)
+sw = _re.sub(r"const C='pal-v\d+',F=\[[^\]]*\]", "const C='pal-v10',F=" + json.dumps(['./','index.html','style.css','app.js','data.json','manifest.webmanifest','icons/icon-180.png','icons/icon-192.png','icons/icon-512.png'] + [f"icons/spells/{i}.jpg" for i in icons]), sw)
 open("sw.js","w").write(sw)
 print("built", len(PAGE))
