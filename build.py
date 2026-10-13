@@ -17,7 +17,7 @@ for i, lv in enumerate(range(27, 30)): TAL[lv] = ("Vindication", f"{i+1}/3", "Re
 TAL[30] = ("Vengeance", "1/3", "Ret · damage after crits")
 
 MILESTONE = {
- 1: ["Start in Northshire Abbey, Elwynn Forest. Seal of Righteousness + auto-attack.", "Train every few levels at the Paladin trainer (Northshire / Stormwind Cathedral)."],
+ 1: ["Start in Northshire Abbey, Elwynn Forest. Seal of Righteousness + auto-attack."],
  5: ["Pick up Mining at a trainer; Blacksmithing in Goldshire/Stormwind. Cooking + First Aid too."],
  6: ["Holy Strike unlocked — press it on cooldown when you have mana. [Icy Veins]"],
  10: ["Talents open. Head toward Westfall / Loch Modan.", "Equip the slowest two-hander you can find (sword ideal)."],
@@ -33,6 +33,21 @@ def zone(lv):
         if lv >= a: z = n
     return z
 
+TR = {int(k): v for k, v in json.load(open("trainer.json")).items()}
+TFE = "https://theforeverera.com/en/spells/paladin/levels/"
+def trainer_html(lv):
+    sp = TR.get(lv)
+    if not sp: return ""
+    li = []
+    for x in sp:
+        kind = "New" if x["kind"] == "New ability" else x["kind"].replace("Rank ", "R")
+        tags = ""
+        if x.get("forever"): tags += ' <span class="tg fv">New in Forever</span>'
+        if x.get("talent"): tags += f' <span class="tg tl">{E("talent spell" if x["talent"].startswith("Talent") else "needs talent")}</span>'
+        li.append(f'<li><span class="k {"new" if kind=="New" else ""}">{kind}</span> {E(x["name"])}{tags}</li>')
+    note = "Beta client data, Lv 1-30 playable in the beta" if lv <= 30 else "Beta client data, not reachable in the beta (cap 30) and may change at launch"
+    cls = "" if lv <= 30 else " warn"
+    return f'<div class="trn"><b>Trainer</b><ul>{"".join(li)}</ul><span class="src{cls}">{note}. <a href="{TFE}">The Forever Era</a></span></div>'
 rows = []
 for lv in range(1, 61):
     items = list(MILESTONE.get(lv, []))
@@ -47,8 +62,8 @@ for lv in range(1, 61):
     summ = TAL[lv][0] if lv in TAL else (items[0][:48] + ("…" if items and len(items[0])>48 else "") if items else "Quest on")
     rows.append(f'''<div class="row" data-lv="{lv}" id="lv{lv}">
  <div class="row-head"><button class="chk" aria-label="Mark level {lv} done" data-k="lv{lv}"></button>
-  <span class="lv">{lv}</span><span class="sum">{E(summ)}</span><span class="zone">{E(zone(lv))}</span></div>
- <div class="row-body">{tal}<ul>{lis}</ul><div class="zline">Zone: {E(zone(lv))} <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+  <span class="lv">{lv}</span><span class="sum">{'<span class="tb">Trainer</span> ' if lv in TR else ''}{E(summ)}</span><span class="zone">{E(zone(lv))}</span></div>
+ <div class="row-body">{trainer_html(lv)}{tal}<ul>{lis}</ul><div class="zline">Zone: {E(zone(lv))} <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
 </div>''')
 
 def ck(key, text, sub=""):

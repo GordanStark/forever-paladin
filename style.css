@@ -34,3 +34,8 @@ body.hidedone .row.done{display:none}
 button{font:inherit}.addrow button,.ghost{min-height:44px;padding:0 14px;border-radius:8px;border:1px solid var(--gold);background:#3a2a12;color:var(--gold2)}.ghost{margin-top:8px;background:transparent}
 .example{background:#4a2a10;color:var(--warn);border:1px dashed var(--warn);border-radius:8px;padding:8px;margin-bottom:10px;font-weight:600}
 table{width:100%;border-collapse:collapse;font-size:14px}td{padding:6px 4px;border-bottom:1px solid rgba(255,255,255,.06);vertical-align:top}td:first-child{color:var(--muted);width:34%}
+.tb{display:inline-block;font-size:11px;font-weight:700;color:#111;background:var(--gold2);border-radius:5px;padding:1px 6px;margin-right:4px;vertical-align:1px}
+.row.done .tb{background:var(--muted)}
+.trn{background:#16243b;border-left:3px solid var(--gold);padding:6px 8px;border-radius:6px;margin-bottom:6px}.trn ul{list-style:none;padding:0;margin:4px 0}.trn li{padding:2px 0}
+.k{display:inline-block;min-width:38px;font-size:12px;color:var(--gold2)}.k.new{color:var(--ok)}
+.tg{font-size:11px;border-radius:4px;padding:0 4px}.fv{background:#2a4a6a}.tl{background:#4a2a4a}
