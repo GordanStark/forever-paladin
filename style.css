@@ -70,3 +70,5 @@ pre#macroTxt{background:#0a1220;border:1px solid var(--line);border-radius:8px;p
 .seal{background:#2a2410;border-left:3px solid var(--gold2);padding:6px 8px;border-radius:6px;font-size:14px}
 
 .bs span{font-size:7.5px}.bs i,.bs em{font-size:8px}
+.dline{margin:.4em 0;font-size:.92em}.dline a{color:inherit;text-decoration:underline}
+.dcard ul{margin:.2em 0 .4em 1.1em;padding:0}.dcard li{margin:.15em 0}

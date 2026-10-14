@@ -28,6 +28,7 @@ MILESTONE = {
 }
 ZONES = [(1,"Northshire / Elwynn Forest"),(10,"Westfall / Loch Modan"),(18,"Redridge Mountains"),(20,"Duskwood / Wetlands"),(25,"Ashenvale / Wetlands"),(30,"Hillsbrad / Alterac & beyond"),(40,"Stranglethorn / Arathi / Desolace"),(45,"Tanaris / Feralas / Hinterlands"),(50,"Un'Goro / Felwood / Searing Gorge"),(55,"Winterspring / Plaguelands")]
 SPELLS = json.load(open("spells.json"))
+from dungeons_data import DUNGEONS, IVD, WHQ
 ZICON = {"Northshire":"_elwynn","Westfall":"_westfall","Redridge":"_redridge","Duskwood":"_duskwood","Ashenvale":"_ashenvale","Hillsbrad":"_hillsbrad","Stranglethorn":"_stv","Tanaris":"_tanaris","Un'Goro":"_ungoro","Winterspring":"_winterspring"}
 def icimg(key, cls="ic"):
     v = SPELLS.get(key)
@@ -108,6 +109,15 @@ def mini_bars(lv):
             ic = icon_of(x["n"], lv)
             h += f'<span class="mb{" n" if nw else ""}{" u" if x["u"] else ""}" title="{E(x["n"])}">' + (f'<img src="icons/spells/{ic}.jpg" alt="" loading="lazy">' if ic else E(x["n"][:3])) + '</span>'
     return h + '</div>'
+SIDE={"A":"Alliance","S":"Shared","H":"Horde-side quests"}
+def dline(lv):
+    ds=[d for d in DUNGEONS if d[1]==lv]
+    if not ds: return ""
+    return '<div class="dline"><b>🏰 Dungeon opens</b> ' + " · ".join(f'<a href="#dungeons">{E(d[0])}</a> ({d[1]}-{d[2]}{", new" if d[4] else ""}{", Horde-side" if d[3]=="H" else ""})' for d in ds) + ' <span class="src">Icy Veins ranges</span></div>'
+def dcard(d):
+    n,lo,hi,side,new,where,qs,note=d
+    q="".join(f'<li><b>{E(a)}</b> · {E(b)}</li>' for a,b in qs) or '<li>Not known yet.</li>'
+    return f'<div class="card dcard" data-lo="{lo}"><h3>{E(n)} <span class="rank">{lo}-{hi}</span>{' <span class="tb">New</span>' if new else ''} <span class="src">{SIDE[side]}</span></h3><p><b>Where:</b> {E(where)}</p><p><b>Quests to grab first</b></p><ul>{q}</ul><p class="note">{E(note)}</p><p><b>Ret loot:</b> Not published for Forever yet.</p></div>'
 rows = []
 for lv in range(1, 61):
     items = list(MILESTONE.get(lv, []))
@@ -123,7 +133,7 @@ for lv in range(1, 61):
     rows.append(f'''<div class="row" data-lv="{lv}" id="lv{lv}">
  <div class="row-head"><button class="chk" aria-label="Mark level {lv} done" data-k="lv{lv}"></button>
   <span class="lv">{lv}</span><span class="sum">{'<span class="tb">Trainer</span> ' if lv in TR else ''}{E(summ)}</span><span class="zone">{E(zone(lv))}</span></div>
- <div class="row-body">{("<div class=\"barch\"><b>Bars</b> " + " · ".join(E(c) for c in bar_changes(lv)) + "</div>") if bar_changes(lv) else ""}{trainer_html(lv)}{tal}<ul>{lis}</ul><div class="zline">{zicon(zone(lv))}Zone: {E(zone(lv))} <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
+ <div class="row-body">{("<div class=\"barch\"><b>Bars</b> " + " · ".join(E(c) for c in bar_changes(lv)) + "</div>") if bar_changes(lv) else ""}{trainer_html(lv)}{tal}{dline(lv)}<ul>{lis}</ul><div class="zline">{zicon(zone(lv))}Zone: {E(zone(lv))} <span class="src">(general Alliance path; Forever quest XP may differ)</span></div></div>
 </div>''')
 
 def ck(key, text, sub=""):
@@ -148,7 +158,7 @@ PAGE = f'''<!doctype html><html lang="en"><head><meta charset="utf-8">
  <div class="wpn" role="group" aria-label="Weapon"><button data-w="slow">Slow 2H (3.0+)</button><button data-w="fast">Fast weapon</button><button data-w="shield">1H + Shield</button></div>
  <button id="rotBtn" class="rotbtn" aria-expanded="false">⚔ Rotation <span id="rotTag"></span></button>
  <div id="rot" class="rot" hidden></div>
- <nav class="tabs"><a href="#guide">1-60</a><a href="#bars">Bars</a><a href="#ret">Ret</a><a href="#gear">Gear</a><a href="#prof">Profs</a><a href="#prot">Prot</a><a href="#back">Break</a><a href="#me">Me</a></nav>
+ <nav class="tabs"><a href="#guide">1-60</a><a href="#bars">Bars</a><a href="#dungeons">Dungeons</a><a href="#ret">Ret</a><a href="#gear">Gear</a><a href="#prof">Profs</a><a href="#prot">Prot</a><a href="#back">Break</a><a href="#me">Me</a></nav>
 </header>
 <main>
 <section id="t-guide" class="tab"><h2>Leveling 1-60</h2>
@@ -240,6 +250,15 @@ PAGE = f'''<!doctype html><html lang="en"><head><meta charset="utf-8">
  <div class="card"><h3>Not on bars</h3><p class="note">Seal of the Crusader, Blessing of Might/Kings (cast by Bow &amp; Buff), Blessing of Wisdom, Salvation, Light, Sacrifice, Turn Undead, Sense Undead, Holy Wrath (50), Summon Charger (60, talent mount), Greater Blessings. Drag them from your spellbook if you want them.</p></div>
  <p class="src">Learn levels from <a href="{TFE}">The Forever Era</a> beta client data. Seal of Command needs the talent (taken at 20 in the plan). Middle 3 follows the weapon toggle. Spells after 30 can't be tested in the beta.</p>
 </section>
+<section id="t-dungeons" class="tab"><h2>Dungeons</h2>
+ <p class="note">35 dungeons, Lv 13-60. Level ranges from Icy Veins Forever. Alliance and shared ones shown; Ragefire Chasm (Horde) left out. ⚠️ = Wowhead says it couldn't test that dungeon in the beta and used Classic data.</p>
+ <div class="card big"><h3>{icimg("_paladin","ic")}Paladin weapon quest (Lv 20)</h3>
+ <p><b>The Tome of Valor</b> (starts in Stormwind, defend Daphne Stilwell in Westfall) leads to <b>The Test of Righteousness</b> from <b>Jordan Stilwell</b> just outside the Ironforge gates. He needs 4 materials: Whitestone Oak Lumber (Deadmines), Jordan's Refined Ore Shipment (Mo'grosh Stronghold elites, Loch Modan, via Bailor Stonehand in Thelsamar), Jordan's Smithing Hammer (Shadowfang Keep), and Purified Kor Gem (Blackfathom Deeps).</p>
+ <p><b>Reward: Verigan's Fist</b>, a 2H mace, 65-99 damage, 3.20 speed, +5 Sta +10 Spi +6 Int, with a chance on hit for 39-59 Holyfire damage (3x vs Fire and Earth elementals). That's a slow 2H, so it suits Seal of Command.</p>
+ <p class="src">Sources: <a href="https://forg.gg/en/forever/tips/verigans-fist">ForG</a>, <a href="https://endgametools.com/en/wow-forever/news/wow-forever-wolfsbane">Endgame Tools</a> (beta build 70291), <a href="https://theforeverera.com/en/quests/1806/">The Forever Era</a>. Stats are beta and may change by launch. Not on Icy Veins yet.</p></div>
+ {''.join(dcard(d) for d in DUNGEONS)}
+ <p class="src">Ranges: <a href="{IVD}">Icy Veins Forever</a>. Quests: <a href="{WHQ}">Wowhead Forever dungeon quests</a> (beta, updated Oct 11). Locations are the usual entrances; new Forever dungeons without a published location say Not known yet.</p>
+</section>
 <section id="t-back" class="tab"><h2>Back from a break</h2>
  <div class="card big"><h3>30-second rotation</h3><ol>
   <li>Seal up (SoR before 20, SoC with a slow 2H).</li><li>Judgement on CD (keeps your seal).</li><li>Holy Strike on CD.</li><li>Consecration if 3+ mobs.</li><li>Top-up: Flash of Light. Low health: Divine Protection, then Holy Light. Last resort: Lay on Hands.</li><li>Bad pull: Blessing of Protection on yourself and run.</li><li>Buffs: Bow &amp; Buff (Might, Kings from 20) + Ret Aura.</li></ol></div>
@@ -286,6 +305,6 @@ PAGE = linkify(PAGE)
 open("index.html", "w").write(PAGE)
 icons = sorted({v["i"] for v in SPELLS.values()})
 sw = open("sw.js").read()
-sw = _re.sub(r"const C='pal-v\d+',F=\[[^\]]*\]", "const C='pal-v14',F=" + json.dumps(['./','index.html','style.css','app.js','data.json','manifest.webmanifest','icons/icon-180.png','icons/icon-192.png','icons/icon-512.png'] + [f"icons/spells/{i}.jpg" for i in icons]), sw)
+sw = _re.sub(r"const C='pal-v\d+',F=\[[^\]]*\]", "const C='pal-v15',F=" + json.dumps(['./','index.html','style.css','app.js','data.json','manifest.webmanifest','icons/icon-180.png','icons/icon-192.png','icons/icon-512.png'] + [f"icons/spells/{i}.jpg" for i in icons]), sw)
 open("sw.js","w").write(sw)
 print("built", len(PAGE))
