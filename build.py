@@ -212,7 +212,7 @@ PAGE = f'''<!doctype html><html lang="en"><head><meta charset="utf-8">
  <div class="card"><h3>Dual spec</h3><p><b>Level 40</b>, bought from your class trainer in a capital city. Several sites cite Blizzard's 30 Sep class deep dive for this.</p>
  <p class="src warn">Cost isn't confirmed. One site says 50g, but Blizzard hasn't given a price. The beta caps at 30, so nobody has tested it yet.</p></div>
  <div class="card"><h3>Prep before 40 (bank it)</h3>
-  {ck("p1","A one-handed weapon and a shield (upgrade the shield as you level)")}
+  {ck("p1","A one-handed weapon and a decent shield in your bank. Swap in better ones as you find them.")}
   {ck("p2","Tank pieces: Stamina, Defense, Armor, Block, plus Spell Power")}
   {ck("p3","Water, plenty of it. Mana is your limit when tanking.")}
   {ck("p4","Mana potions for after Lay on Hands")}
@@ -286,6 +286,6 @@ PAGE = linkify(PAGE)
 open("index.html", "w").write(PAGE)
 icons = sorted({v["i"] for v in SPELLS.values()})
 sw = open("sw.js").read()
-sw = _re.sub(r"const C='pal-v\d+',F=\[[^\]]*\]", "const C='pal-v13',F=" + json.dumps(['./','index.html','style.css','app.js','data.json','manifest.webmanifest','icons/icon-180.png','icons/icon-192.png','icons/icon-512.png'] + [f"icons/spells/{i}.jpg" for i in icons]), sw)
+sw = _re.sub(r"const C='pal-v\d+',F=\[[^\]]*\]", "const C='pal-v14',F=" + json.dumps(['./','index.html','style.css','app.js','data.json','manifest.webmanifest','icons/icon-180.png','icons/icon-192.png','icons/icon-512.png'] + [f"icons/spells/{i}.jpg" for i in icons]), sw)
 open("sw.js","w").write(sw)
 print("built", len(PAGE))
