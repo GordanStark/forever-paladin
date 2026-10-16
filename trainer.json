@@ -230,16 +230,15 @@
 "kind": "New ability",
 "forever": true,
 "talent": "Talent (Protection, row 4)"
-},
-{
-"name": "Seal of Fury",
-"kind": "Rank 3",
-"forever": true
 }
 ],
 "26": [
 {
-"name": "Blessing of Salvation",
+"name": "Salvation",
+"kind": "New ability"
+},
+{
+"name": "Revoke",
 "kind": "New ability"
 },
 {
@@ -253,6 +252,11 @@
 {
 "name": "Flash of Light",
 "kind": "Rank 2"
+},
+{
+"name": "Seal of Fury",
+"kind": "Rank 3",
+"forever": true
 }
 ],
 "28": [
@@ -699,7 +703,7 @@
 "kind": "New ability"
 },
 {
-"name": "Greater Blessing of Salvation",
+"name": "Mass Salvation",
 "kind": "New ability"
 },
 {

@@ -72,3 +72,8 @@ pre#macroTxt{background:#0a1220;border:1px solid var(--line);border-radius:8px;p
 .bs span{font-size:7.5px}.bs i,.bs em{font-size:8px}
 .dline{margin:.4em 0;font-size:.92em}.dline a{color:inherit;text-decoration:underline}
 .dcard ul{margin:.2em 0 .4em 1.1em;padding:0}.dcard li{margin:.15em 0}
+
+body.p-prot .ro{display:none!important}body.p-ret .po{display:none!important}
+details.card summary,.card details summary{cursor:pointer;color:var(--gold2);min-height:44px;display:flex;align-items:center}
+.card details{margin-top:8px}.card details ul{margin:6px 0;padding-left:20px}
+details.card ul{margin:6px 0;padding-left:20px}
