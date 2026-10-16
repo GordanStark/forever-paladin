@@ -10,12 +10,11 @@ $$('.tab').forEach(x=>x.classList.toggle('on',x.id==='t-'+t));$$('.tabs a').forE
 addEventListener('hashchange',showTab);showTab();
 // level picker
 const sel=$('#lvSel');for(let i=1;i<=60;i++)sel.add(new Option(i,i));
-const W='slow';
-const WN={slow:'Slow 2H',fast:'Fast weapon',shield:'1H + Shield'};
+let W=S.get('wpn','slow');if(W!=='fast')W='slow';
+const WN={slow:'Slow 2H',fast:'Fast weapon'};
 function sealAt(l){return (W==='slow'&&l>=20)?'Seal of Command':'Seal of Righteousness'}
 function sealWhy(l){if(W==='slow')return l<20?'Slow 2H: Seal of Righteousness until 20, then Seal of Command (talent).':'Slow 2H: Seal of Command (talent). Judge after a Hammer of Justice stun for burst.';
- if(W==='fast')return 'Fast weapon / high Spell Power: Seal of Righteousness at every level (scales with Spell Power, not weapon speed).';
- return '1H + Shield: Seal of Righteousness. That is a Prot-leaning way to level, with less damage but sturdier. A two-hander is preferred for Ret.'}
+ return 'Fast weapon / high Spell Power: Seal of Righteousness at every level (scales with Spell Power, not weapon speed).'}
 function rotFor(l){const a=[];
  a.push('<b>'+sealAt(l)+'</b> up <span class="src">'+WN[W]+'</span>');
  a.push('<b>Judgement</b> on CD (keeps your seal)');
@@ -73,3 +72,10 @@ const _setLv=setLv;setLv=function(l){_setLv(l);renderBars(+sel.value);macroUpd(+
 $('#copyMacro')&&($('#copyMacro').onclick=async e=>{const t=$('#macroTxt').textContent;try{await navigator.clipboard.writeText(t)}catch(_){const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();document.execCommand('copy');a.remove()}e.target.textContent='Copied ✓';setTimeout(()=>e.target.textContent='Copy macro',1500)});
 (()=>{const o=new URLSearchParams(location.search).get('only');if(o)$$('.row').forEach(r=>{if(r.dataset.lv!==o)r.style.display='none'})})();
 
+function applyW(){S.set('wpn',W);$$('.wpn button').forEach(b=>b.classList.toggle('on',b.dataset.w===W));
+ const l=+sel.value;$('#rot').innerHTML=linkHTML(rotFor(l));renderBars(l);
+ const sa=$('#sealAdvice');if(sa)sa.innerHTML=linkHTML(sealWhy(l));
+ const wn=$('#wpnNote');if(wn)wn.innerHTML={slow:'Slow 2H: the right pick for Ret. Any weapon type gets Human Ruthless (+2% crit).',fast:'Fast weapon: fine if its DPS is clearly higher, but slower two-handers are preferred for Ret (Holy Strike hits harder).'}[W];}
+$$('.wpn button').forEach(b=>b.onclick=()=>{W=b.dataset.w;applyW()});
+const _setLv2=setLv;setLv=function(l){_setLv2(l);applyW()};
+(()=>{const q=new URLSearchParams(location.search).get('w');if(q==='slow'||q==='fast')W=q;applyW()})();

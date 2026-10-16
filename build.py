@@ -39,10 +39,10 @@ PROT_ORDER = [(lv, TALP[lv][0], TALP[lv][1]) for lv in range(10, 31)]
 MILESTONE = {
  1: ["Start in Northshire Abbey, Elwynn Forest. Seal of Righteousness + auto-attack."],
  5: ["Pick up Mining at a trainer; Blacksmithing in Goldshire/Stormwind. Cooking + First Aid too."],
- 6: ["Holy Strike unlocked: press it on cooldown when you have mana. [Icy Veins]"],
+ 6: ["Holy Strike unlocked — press it on cooldown when you have mana. [Icy Veins]"],
  10: ["Talents open. Head toward Westfall / Loch Modan.", "Equip the slowest two-hander you can find."],
- 20: ["Consecration: your first AoE. Mana-hungry: 2-3 mobs max solo. [Icy Veins]", "Seal of Command talent (best with a slow 2H, see Gear)."],
- 30: ["Beta cap. Check Merchant's Favor Blacksmithing recipes (Crusader's set). [Icy Veins]", "Shockadin (Holy Shock) build becomes possible. Not our plan."],
+ 20: ["Consecration — your first AoE. Mana-hungry: 2-3 mobs max solo. [Icy Veins]", "Seal of Command talent (best with a slow 2H; see weapon toggle)."],
+ 30: ["Beta cap. Check Merchant's Favor Blacksmithing recipes (Crusader's set). [Icy Veins]", "Shockadin (Holy Shock) build becomes possible — not our plan."],
  40: ["Dual Specialization opens (Blizzard Paladin deep dive). Cost not published. See the Off spec: Prot tab."],
  60: ["Max level. Endgame gear/talents not published yet."],
 }
@@ -176,6 +176,7 @@ PAGE = f'''<!doctype html><html lang="en"><head><meta charset="utf-8">
 <header class="bar">
  <div class="bar-top"><div class="who"><span class="crest">{icimg("_human","ci1")}{icimg("_paladin","ci1")}{icimg("_ret","ci1")}</span><b>Gordan Stark</b><span>Human Ret Paladin · Lv <span id="curLv">1</span></span></div>
   <div class="lvpick"><button id="lvDown" aria-label="Level down">−</button><select id="lvSel" aria-label="Current level"></select><button id="lvUp" aria-label="Level up">+</button></div></div>
+ <div class="wpn" role="group" aria-label="Weapon"><button data-w="slow">Slow 2H (3.0+)</button><button data-w="fast">Fast weapon</button></div>
  <button id="rotBtn" class="rotbtn" aria-expanded="false">⚔ Rotation <span id="rotTag"></span></button>
  <div id="rot" class="rot" hidden></div>
  <nav class="tabs"><a href="#guide">1-60</a><a href="#bars">Bars</a><a href="#dungeons">Dungeons</a><a href="#ret">Ret</a><a href="#gear">Gear</a><a href="#prof">Profs</a><a href="#back">Break</a><a href="#me">Me</a><a href="#prot">Off spec: Prot</a></nav>
@@ -190,7 +191,7 @@ PAGE = f'''<!doctype html><html lang="en"><head><meta charset="utf-8">
 <section id="t-ret" class="tab"><h2>{icimg("_ret","hic")}Retribution</h2>
  <div class="card"><h3>Talents to 30</h3>{talent_list}
  <p class="src">Talent names match the Icy Veins "Retribution Focused" build (Benediction, Sanctified Judgement, Pursuit of Justice, Sacred Arbiter, Seal of Command, Vengeance). Icy Veins also highlights <b>Holy Conduit</b> and <b>Improved Judgement</b>, which aren't in this plan. Icy Veins doesn't print a level-by-level order, so double-check it in their calculator. <a href="{IV}">Icy Veins</a></p></div>
- <div class="card"><h3>Rotation</h3><div class="seal">Slow 2H: Seal of Righteousness until 20, then Seal of Command (talent). Judge after a Hammer of Justice stun for burst.</div><ol>
+ <div class="card"><h3>Rotation</h3><div id="sealAdvice" class="seal"></div><ol>
   <li>Always keep a Seal up. <b>Before 20:</b> Seal of Righteousness. <b>20+:</b> Seal of Command with a slow two-hander and no on-hit effect. SoR is still better with high Spell Power, a fast weapon, or "Strike of the Hydra" gear.<span class="src warn">Oct 15 build: Seal of Righteousness got about half as much from Spell Damage as before (a bug fix), so the Spell Power advice may be out of date.</span></li>
   <li><b>Judgement</b> on cooldown. It does <b>not</b> use up your Seal in Forever.</li>
   <li><b>Holy Strike</b> on cooldown (from level 6).</li>
@@ -228,17 +229,14 @@ PAGE = f'''<!doctype html><html lang="en"><head><meta charset="utf-8">
 
 <section id="t-gear" class="tab"><h2>Gear & Stats</h2>
  
- <div class="card"><h3>Ret stats (Icy Veins, beta Lv30)</h3><ol>
+ <div class="card"><h3>Stat priority (Icy Veins, beta Lv30)</h3><ol>
   <li><b>Weapon DPS</b>: your #1 upgrade. Slow is a bit better for Holy Strike.</li>
   <li>Hit / Expertise (rare before 30)</li><li>Crit</li><li><b>Spell Power</b>: scales Judgement, Holy Strike, Consecration</li>
   <li>Strength</li><li>Intellect</li><li>Agility (fine if it's there, don't chase it)</li><li>Stamina</li><li>Spirit</li></ol>
   <p>Items with <b>both Strength and Spell Power</b> beat items with only one. Greens "of Holy Wrath" can be great.</p>
   <p class="src warn">This is different from the earlier shorthand (Str &gt; Crit &gt; Stam &gt; Int, skip Agi/Spirit). On Icy Veins, Spell Power ranks above Strength and Stamina sits low. Stamina still keeps you safer solo. <a href="{IV}">Icy Veins</a></p></div>
- <div class="card"><h3>Weapon</h3><ul>
-  <li><b>Slow 2H (3.0+):</b> the right pick for Ret. Seal of Righteousness until 20, then Seal of Command (talent). Slower two-handers make Holy Strike hit harder.</li>
-  <li><b>Fast weapon:</b> fine if its DPS is clearly higher. Seal of Righteousness at every level.</li>
-  <li>Any weapon type gets Human Ruthless (+2% crit), so pick by DPS and speed.</li></ul>
-  <p>Level-30 options: Manual Crowd Pummeler (Gnomeregan), Strike of the Hydra (BFD, Aku'mai), Boneslicer (Stockades, Dextren Ward), Corpsemaker (RFK, Overlord Ramtusk), Rock Pulverizer (Badlands, Alliance quest).</p></div>
+ <div class="card"><h3>Weapon</h3><p id="wpnNote" class="seal"></p><p>Two-hander. Any weapon type gets Human Ruthless (+2% crit), so you don't need a sword. Maces and axes are fine if they hit harder.</p>
+ <p>Level-30 options: Manual Crowd Pummeler (Gnomeregan), Strike of the Hydra (BFD, Aku'mai), Boneslicer (Stockades, Dextren Ward), Corpsemaker (RFK, Overlord Ramtusk), Rock Pulverizer (Badlands, Alliance quest).</p></div>
  <div class="card"><h3>Blacksmithing pieces (Merchant's Favor recipes)</h3><ul>
   <li>Crusader's Chain Helm</li><li>Crusader's Silvered Chain Shirt</li><li>Justicar's Belt / Crusader's Chain Belt</li><li>Crusader's Silvered Chain Leggings</li><li>Crusader's Boots</li></ul>
   <p>Also: Cloak of the Divine Storm (Alliance Paladin quest chain), Libram: Tenets of the Silver Hand (Enchanting).</p>
@@ -330,7 +328,7 @@ PAGE = f'''<!doctype html><html lang="en"><head><meta charset="utf-8">
 /bow</pre><button id="copyMacro" class="ghost">Copy macro</button>
  <p class="src">Make it in-game with /macro, then New. It casts Blessing of Might before Lv 20 and Blessing of Kings from Lv 20 (the text above follows your level). Character macros hold 255 characters, and this one is far under. That limit is from standard WoW and wasn't checked against Forever.</p></div>
  <div class="card"><h3>Not on bars</h3><p class="note">Seal of the Crusader, Blessing of Might/Kings (cast by Bow &amp; Buff), Blessing of Wisdom, Salvation, Light, Sacrifice, Turn Undead, Sense Undead, Holy Wrath (50), Summon Charger (60, talent mount), Greater Blessings. Drag them from your spellbook if you want them.</p></div>
- <p class="src">Learn levels from <a href="{TFE}">The Forever Era</a> beta client data. Seal of Command needs the talent (taken at 20 in the plan). Spells after 30 can't be tested in the beta.</p>
+ <p class="src">Learn levels from <a href="{TFE}">The Forever Era</a> beta client data. Seal of Command needs the talent (taken at 20 in the plan). Middle 3 follows the weapon toggle. Spells after 30 can't be tested in the beta.</p>
 </section>
 <section id="t-dungeons" class="tab"><h2>Dungeons</h2>
  <p class="note">35 dungeons, Lv 13-60. Level ranges from Icy Veins Forever. Alliance and shared ones shown; Ragefire Chasm (Horde) left out. ⚠️ = Wowhead says it couldn't test that dungeon in the beta and used Classic data.</p>
@@ -387,6 +385,6 @@ PAGE = linkify(PAGE)
 open("index.html", "w").write(PAGE)
 icons = sorted({v["i"] for v in SPELLS.values()})
 sw = open("sw.js").read()
-sw = _re.sub(r"const C='pal-v\d+',F=\[[^\]]*\]", "const C='pal-v18',F=" + json.dumps(['./','index.html','style.css','app.js','data.json','manifest.webmanifest','icons/icon-180.png','icons/icon-192.png','icons/icon-512.png'] + [f"icons/spells/{i}.jpg" for i in icons]), sw)
+sw = _re.sub(r"const C='pal-v\d+',F=\[[^\]]*\]", "const C='pal-v19',F=" + json.dumps(['./','index.html','style.css','app.js','data.json','manifest.webmanifest','icons/icon-180.png','icons/icon-192.png','icons/icon-512.png'] + [f"icons/spells/{i}.jpg" for i in icons]), sw)
 open("sw.js","w").write(sw)
 print("built", len(PAGE))
