@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build Gordan Stark (Human Ret Paladin) PWA guide. Structure mirrors gordan-hunter v4."""
+"""Build Gordan Silverhand (Human Ret Paladin) PWA guide. Structure mirrors gordan-hunter v4."""
 import json, html
 E = html.escape
 IV = "https://www.icy-veins.com/wow-forever/retribution-paladin-melee-dps-pve-guide"
@@ -165,16 +165,16 @@ talent_list_p = "".join(ck(f"pt{lv}", f"<b>{lv}</b> · {E(n)} {r}") for lv, n, r
 
 PAGE = f'''<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Gordan Stark · Ret Paladin</title>
+<title>Gordan Silverhand · Ret Paladin</title>
 <meta name="theme-color" content="#0b1526">
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Gordan Stark">
+<meta name="apple-mobile-web-app-title" content="Gordan Silverhand">
 <link rel="apple-touch-icon" href="icons/icon-180.png"><link rel="icon" href="icons/icon-192.png">
 <link rel="manifest" href="manifest.webmanifest"><link rel="stylesheet" href="style.css">
 </head><body>
 <header class="bar">
- <div class="bar-top"><div class="who"><span class="crest">{icimg("_human","ci1")}{icimg("_paladin","ci1")}{icimg("_ret","ci1")}</span><b>Gordan Stark</b><span>Human Ret Paladin · Lv <span id="curLv">1</span></span></div>
+ <div class="bar-top"><div class="who"><span class="crest">{icimg("_human","ci1")}{icimg("_paladin","ci1")}{icimg("_ret","ci1")}</span><b>Gordan Silverhand</b><span>Human Ret Paladin · Lv <span id="curLv">1</span></span></div>
   <div class="lvpick"><button id="lvDown" aria-label="Level down">−</button><select id="lvSel" aria-label="Current level"></select><button id="lvUp" aria-label="Level up">+</button></div></div>
  <div class="wpn" role="group" aria-label="Weapon"><button data-w="slow">Slow 2H (3.0+)</button><button data-w="fast">Fast weapon</button></div>
  <button id="rotBtn" class="rotbtn" aria-expanded="false">⚔ Rotation <span id="rotTag"></span></button>
@@ -385,6 +385,6 @@ PAGE = linkify(PAGE)
 open("index.html", "w").write(PAGE)
 icons = sorted({v["i"] for v in SPELLS.values()})
 sw = open("sw.js").read()
-sw = _re.sub(r"const C='pal-v\d+',F=\[[^\]]*\]", "const C='pal-v19',F=" + json.dumps(['./','index.html','style.css','app.js','data.json','manifest.webmanifest','icons/icon-180.png','icons/icon-192.png','icons/icon-512.png'] + [f"icons/spells/{i}.jpg" for i in icons]), sw)
+sw = _re.sub(r"const C='pal-v\d+',F=\[[^\]]*\]", "const C='pal-v20',F=" + json.dumps(['./','index.html','style.css','app.js','data.json','manifest.webmanifest','icons/icon-180.png','icons/icon-192.png','icons/icon-512.png'] + [f"icons/spells/{i}.jpg" for i in icons]), sw)
 open("sw.js","w").write(sw)
 print("built", len(PAGE))
