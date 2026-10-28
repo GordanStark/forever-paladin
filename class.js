@@ -1,6 +1,6 @@
 // Paladin class hooks for the shared Forever guide app.js
 (function(){
-const WN={slow:'Ret alt: slow 2H',fast:'Prot: 1H + shield'};
+const WN={slow:'Retribution',fast:'Protection'};
 function sealAt(l,W){if(W==='slow')return l>=20?'Seal of Command':'Seal of Righteousness';return l>=10?'Seal of Fury':'Seal of Righteousness'}
 function sealWhy(l,W){if(W==='slow')return l<20?'Slow 2H: Seal of Righteousness until 20, then Seal of Command (talent).':'Slow 2H: Seal of Command (talent). Judge after a Hammer of Justice stun for burst.';
  return l<10?'Prot: Seal of Righteousness until Seal of Fury at 10.':'Prot (1H + shield): Seal of Fury. Its absorb needs a shield; faster weapons get more from its flat Holy damage. Judging it taunts.'}
@@ -22,7 +22,7 @@ function macroUpd(l){const n=l>=20?'Blessing of Kings':'Blessing of Might';const
 
 window.K={prefix:'pal',modeKey:'wpn2',modes:['fast','slow'],rotFor,advice:sealWhy,SH,
  wfix:(c,l,W)=>{if(W!=='slow'&&c.mid[2]&&/^Seal of (Command|Righteousness)$/.test(c.mid[2].n)&&l>=10)c.mid[2].n='Seal of Fury';return c},
- barLab:{top:['Top','click · combat cooldowns'],mid:['Middle','keys 1-7 · pressed constantly'],bot:['Bottom','long CDs · out of combat'],aur:['Aura bar','auras + Righteous Fury']},
+ barLab:{top:['Top','click · combat cooldowns'],mid:['Middle','keys 1-7 · pressed constantly'],bot:['Bottom','long CDs · out of combat'],aur:['Aura Bar','auras + Righteous Fury']},
  iconAlias:(n,l)=>n==='Bow & Buff'?(l>=20?'Blessing of Kings':'Blessing of Might'):null,
  label:n=>n==='Righteous Fury'?'Prot: R. Fury':null,macroUpd,
  wnote:{slow:'Ret alt spec (dual spec from 40): slowest two-hander, Seal of Command once you have the talent.',fast:'Prot main: one-hander + shield, Seal of Fury from 10 (WoW Forever DB / Blizzard deep dive).'}};
