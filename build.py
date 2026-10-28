@@ -169,7 +169,7 @@ PAGE = f'''<!doctype html><html lang="en"><head><meta charset="utf-8">
 <header class="bar">
  <div class="bar-top"><div class="who"><span class="crest">{icimg("_human","ci1")}{icimg("_paladin","ci1")}{icimg("_prot","ci1")}</span><b>Gordan Silverhand</b><span>Human Prot Paladin · Lv <span id="curLv">1</span></span></div>
   <div class="lvpick"><button id="lvDown" aria-label="Level down">−</button><select id="lvSel" aria-label="Current level"></select><button id="lvUp" aria-label="Level up">+</button></div></div>
- <div class="wpn" role="group" aria-label="Weapon"><button data-w="slow">Slow 2H (3.0+)</button><button data-w="fast">Fast weapon</button></div>
+ <div class="wpn" role="group" aria-label="Weapon"><button data-w="fast">Prot: 1H + shield</button><button data-w="slow">Ret alt: slow 2H</button></div>
  <button id="rotBtn" class="rotbtn" aria-expanded="false">⚔ Rotation <span id="rotTag"></span></button>
  <div id="rot" class="rot" hidden></div>
  <nav class="tabs"><a href="#guide">1-60</a><a href="#bars">Bars</a><a href="#dungeons">Dungeons</a><a href="#prot">Prot (main)</a><a href="#gear">Gear</a><a href="#prof">Profs</a><a href="#back">Break</a><a href="#me">Me</a><a href="#ret">Alt: Ret</a></nav>

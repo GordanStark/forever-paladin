@@ -10,11 +10,11 @@ $$('.tab').forEach(x=>x.classList.toggle('on',x.id==='t-'+t));$$('.tabs a').forE
 addEventListener('hashchange',showTab);showTab();
 // level picker
 const sel=$('#lvSel');for(let i=1;i<=60;i++)sel.add(new Option(i,i));
-let W=S.get('wpn','slow');if(W!=='fast')W='slow';
-const WN={slow:'Slow 2H',fast:'Fast weapon'};
-function sealAt(l){return (W==='slow'&&l>=20)?'Seal of Command':'Seal of Righteousness'}
+let W=S.get('wpn2','fast');if(W!=='slow')W='fast';
+const WN={slow:'Ret alt: slow 2H',fast:'Prot: 1H + shield'};
+function sealAt(l){if(W==='slow')return l>=20?'Seal of Command':'Seal of Righteousness';return l>=10?'Seal of Fury':'Seal of Righteousness'}
 function sealWhy(l){if(W==='slow')return l<20?'Slow 2H: Seal of Righteousness until 20, then Seal of Command (talent).':'Slow 2H: Seal of Command (talent). Judge after a Hammer of Justice stun for burst.';
- return 'Fast weapon / high Spell Power: Seal of Righteousness at every level (scales with Spell Power, not weapon speed).'}
+ return l<10?'Prot: Seal of Righteousness until Seal of Fury at 10.':'Prot (1H + shield): Seal of Fury. Its absorb needs a shield; faster weapons get more from its flat Holy damage. Judging it taunts.'}
 function rotFor(l){const a=[];
  a.push('<b>'+sealAt(l)+'</b> up <span class="src">'+WN[W]+'</span>');
  a.push('<b>Judgement</b> on CD (keeps your seal)');
@@ -61,8 +61,8 @@ if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js',{updat
 
 setTimeout(()=>{if(!location.search.includes('noscroll')&&(location.hash||'#guide')==='#guide'){const r=$('.row.cur');if(r)window.scrollTo(0,r.offsetTop-$('.bar').offsetHeight-8)}},50);
 const SH={'Hammer of Justice':'Hammer of Justice','Blessing of Protection':'Bless. of Protect','Divine Protection':'Divine Protect','Seal of the Crusader':'Seal of Crusader','Seal of Righteousness':'Seal of Right.','Seal of Command':'Seal of Command','Judgement':'Judge-ment','Consecration':'Consec-ration','Exorcism':'Exor-cism','Flash of Light':'Flash of Light','Blessing of Might':'Bless. of Might','Blessing of Kings':'Bless. of Kings','Redemption':'Redemp-tion','Hearthstone':'Hearth-stone','Blessing of Freedom':'Bless. of Freedom','Hammer of Wrath':'Hammer of Wrath','Divine Shield':'Divine Shield','Bow & Buff':'Bow & Buff','Holy Strike':'Holy Strike','Divine Intervention':'Divine Interv.','Summon Warhorse':'Warhorse','Devotion Aura':'Devotion','Retribution Aura':'Retri-bution','Concentration Aura':'Concen-tration','Shadow Resistance Aura':'Shadow Res.','Frost Resistance Aura':'Frost Res.','Fire Resistance Aura':'Fire Res.'};
-function wfix(x){if(!x)return x;const c=JSON.parse(JSON.stringify(x));if(W!=='slow'&&c.mid[2]&&c.mid[2].n==='Seal of Command')c.mid[2].n='Seal of Righteousness';return c}
-function renderBars(l){const b=wfix(window.BARS[l]),p=wfix(window.BARS[l-1]);const lab={top:['Top','click · combat cooldowns'],mid:['Middle','keys 1-7 · pressed constantly'],bot:['Bottom','long CDs · out of combat'],aur:['Aura bar','auras + Righteous Fury']};
+function wfix(x){if(!x)return x;const c=JSON.parse(JSON.stringify(x));if(W!=='slow'&&c.mid[2]&&/^Seal of (Command|Righteousness)$/.test(c.mid[2].n)&&window.__L>=10)c.mid[2].n='Seal of Fury';return c}
+function renderBars(l){window.__L=l;const b=wfix(window.BARS[l]),p=wfix(window.BARS[l-1]);const lab={top:['Top','click · combat cooldowns'],mid:['Middle','keys 1-7 · pressed constantly'],bot:['Bottom','long CDs · out of combat'],aur:['Aura bar','auras + Righteous Fury']};
  $('#barLv').textContent=l;
  $('#barsBox').innerHTML=['top','mid','bot','aur'].map(r=>`<div class="brow${r==='aur'?' aur':''}"><div class="blab"><b>${lab[r][0]}</b> ${lab[r][1]}</div><div class="bslots">`+b[r].map((s,i)=>{if(!s)return`<div class="bs empty">${r==='mid'?i+1:''}</div>`;
   const nw=!p||JSON.stringify(p[r][i])!==JSON.stringify(s);const v=s.n==='Bow & Buff'?{i:SPELLS[l>=20?'Blessing of Kings':'Blessing of Might'].i}:(SPELLS[s.n]||{});const tag=v.u?'a':'div';return`<${tag} class="bs${nw?' new':''}${s.u?' unc':''}"${v.u?` href="${v.u}" target="_blank" rel="noopener"`:''} title="${s.n}">${v.i?`<img src="icons/spells/${v.i}.jpg" alt="">`:''}${r==='mid'?`<i>${i+1}</i>`:''}<span>${s.n==='Righteous Fury'?'Prot: R. Fury':(SH[s.n]||s.n)}</span>${nw?'<em>NEW</em>':''}</${tag}>`}).join('')+'</div></div>').join('')}
@@ -72,10 +72,10 @@ const _setLv=setLv;setLv=function(l){_setLv(l);renderBars(+sel.value);macroUpd(+
 $('#copyMacro')&&($('#copyMacro').onclick=async e=>{const t=$('#macroTxt').textContent;try{await navigator.clipboard.writeText(t)}catch(_){const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();document.execCommand('copy');a.remove()}e.target.textContent='Copied ✓';setTimeout(()=>e.target.textContent='Copy macro',1500)});
 (()=>{const o=new URLSearchParams(location.search).get('only');if(o)$$('.row').forEach(r=>{if(r.dataset.lv!==o)r.style.display='none'})})();
 
-function applyW(){S.set('wpn',W);$$('.wpn button').forEach(b=>b.classList.toggle('on',b.dataset.w===W));
+function applyW(){S.set('wpn2',W);$$('.wpn button').forEach(b=>b.classList.toggle('on',b.dataset.w===W));
  const l=+sel.value;$('#rot').innerHTML=linkHTML(rotFor(l));renderBars(l);
  const sa=$('#sealAdvice');if(sa)sa.innerHTML=linkHTML(sealWhy(l));
- const wn=$('#wpnNote');if(wn)wn.innerHTML={slow:'Slow 2H: the right pick for Ret. Any weapon type gets Human Ruthless (+2% crit).',fast:'Fast weapon: fine if its DPS is clearly higher, but slower two-handers are preferred for Ret (Holy Strike hits harder).'}[W];}
+ const wn=$('#wpnNote');if(wn)wn.innerHTML={slow:'Ret alt spec (dual spec from 40): slowest two-hander, Seal of Command once you have the talent.',fast:'Prot main: one-hander + shield, Seal of Fury from 10 (WoW Forever DB / Blizzard deep dive).'}[W];}
 $$('.wpn button').forEach(b=>b.onclick=()=>{W=b.dataset.w;applyW()});
 const _setLv2=setLv;setLv=function(l){_setLv2(l);applyW()};
 (()=>{const q=new URLSearchParams(location.search).get('w');if(q==='slow'||q==='fast')W=q;applyW()})();
