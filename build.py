@@ -16,34 +16,27 @@ TAL[26] = ("Sacred Arbiter", "1/1", "Ret · more Judgement / Holy Strike damage"
 for i, lv in enumerate(range(27, 30)): TAL[lv] = ("Vindication", f"{i+1}/3", "Ret · weakens what you hit")
 TAL[30] = ("Vengeance", "1/3", "Ret · damage after crits")
 
-# Protection plan 10-30: order matches classicwowforever (Oct 14) + Mobalytics (Oct 15). Beyond 30: Mobalytics only, unconfirmed.
+# Protection MAIN plan 10-60: WoW Forever DB Protection leveling order (wowfdb.com/classes/paladin/protection/leveling/, beta 1.60.1). 31-60 untested (beta cap 30).
 TALP = {}
-def _run(lv0, name, n, d):
-    for i in range(n): TALP[lv0 + i] = (name, f"{i+1}/{n}", d)
-_run(10, "Redoubt", 5, "Hits on you can give extra block chance for a short time")
-_run(15, "Precision", 3, "+3% hit with all spells and attacks at 3/3")
-TALP[18] = ("Anticipation", "1/5", "+Defense (8 at 2 points)"); TALP[19] = ("Anticipation", "2/5", "+Defense (8 at 2 points)")
-TALP[20] = ("Improved Seal of Fury", "1/1", "Mana back each time Seal of Fury's absorb is used up")
-for _i, _lv in enumerate(range(21, 24)): TALP[_lv] = ("Shield Specialization", f"{_i+1}/3", "Shield blocks 30% more; a block gives back 4% Mana at 3/3 (3 sec limit)")
-TALP[24] = ("Improved Righteous Fury", "1/3", "2% less damage taken while Righteous Fury is on")
-TALP[25] = ("Swift Judgement", "1/1", "Resets Judgement and makes the next one free (1 min cooldown)")
-for _i, _lv in enumerate(range(26, 29)): TALP[_lv] = ("One-Handed Weapon Specialization", f"{_i+1}/3", "+10% damage with your one-hander at 3/3")
-TALP[29] = ("Improved Righteous Fury", "2/3", "4% less damage taken while Righteous Fury is on")
-TALP[30] = ("Templar's Bulwark", "1/1", "Absorb equal to your full health for 8 sec (5 min cooldown)")
-for _i, _lv in enumerate(range(31, 36)): TALP[_lv] = ("Reckoning", f"{_i+1}/5", "Extra attacks after a block or a crit on you")
-TALP[36] = ("Improved Righteous Fury", "3/3", "6% less damage taken while Righteous Fury is on")
-for _i, _lv in enumerate(range(37, 40)): TALP[_lv] = ("Iron Creed", f"{_i+1}/5", "Holy Strike gives a short damage cut with Righteous Fury on")
-TALP[40] = ("Holy Shield", "1/1", "+30% block for 10 sec (needs Templar's Bulwark)")
-PROT_ORDER = [(lv, TALP[lv][0], TALP[lv][1]) for lv in range(10, 31)]
+def _run(lv0, name, n, d, start=0):
+    for i in range(n): TALP[lv0 + i] = (name, f"{start+i+1}/{start+n if False else TOT.get(name,n)}", d)
+TOT = {"Deflection":5,"Anticipation":5,"Conviction":5,"Reckoning":5}
+_seq = [(10,"Benediction",5,"Ret · cheaper instant spells (mana)"),(15,"Improved Judgement",2,"Ret · shorter Judgement cooldown"),(17,"Holy Conduit",2,"Ret · Consecration costs 40% less"),(19,"Deflection",1,"Ret · +parry"),(20,"Pursuit of Justice",2,"Ret · run speed"),(22,"Redoubt",5,"Prot · chance for extra block when hit"),(27,"Precision",3,"Prot · +hit with spells and attacks"),(30,"Anticipation",2,"Prot · +Defense"),(32,"Shield Specialization",3,"Prot · blocks return Mana"),(35,"Improved Seal of Fury",1,"Prot · Mana back from Seal of Fury absorbs"),(36,"Sanctified Judgement",3,"Ret · Judgement Mana return"),(39,"Sacred Arbiter",1,"Ret · Holy Strike refreshes Judgements"),(40,"Deflection",4,"Ret · +parry"),(44,"Vengeance",3,"Ret · damage after crits"),(47,"Repentance",1,"Ret · incapacitate a humanoid"),(48,"Conviction",1,"Ret · +crit"),(49,"Champion of the Light",3,"Ret · Intellect to spell damage"),(52,"Improved Righteous Fury",3,"Prot · up to 6% less damage taken"),(55,"Sacred Duty",2,"Prot · +Stamina, shorter bubble cooldowns"),(57,"Swift Judgement",1,"Prot · reset Judgement (second taunt)"),(58,"Templar's Bulwark",1,"Prot · absorb = full health, 8 sec"),(59,"Reckoning",2,"Prot · extra attacks after block/crit")]
+_cnt={}
+for lv0,name,n,d in _seq:
+    st=_cnt.get(name,0); tot=TOT.get(name,n+st)
+    for i in range(n): TALP[lv0+i]=(name,f"{st+i+1}/{tot}",d)
+    _cnt[name]=st+n
+PROT_ORDER = [(lv, TALP[lv][0], TALP[lv][1]) for lv in range(10, 61)]
 
 MILESTONE = {
  1: ["Start in Northshire Abbey, Elwynn Forest. Seal of Righteousness + auto-attack."],
  5: ["Pick up Mining at a trainer; Blacksmithing in Goldshire/Stormwind. Cooking + First Aid too."],
  6: ["Holy Strike unlocked — press it on cooldown when you have mana. [Icy Veins]"],
- 10: ["Talents open. Head toward Westfall / Loch Modan.", "Equip the slowest two-hander you can find."],
- 20: ["Consecration — your first AoE. Mana-hungry: 2-3 mobs max solo. [Icy Veins]", "Seal of Command talent (best with a slow 2H; see weapon toggle)."],
+ 10: ["Talents open. Head toward Westfall / Loch Modan.", "Seal of Fury learned: wear a one-hander + shield (its absorb needs a shield). [WoW Forever DB]"],
+ 20: ["Consecration — your first AoE. Mana-hungry: 2-3 mobs max solo. [Icy Veins]", "Prot: spend mana on Holy Strike and Flash of Light first; Consecration is pricey this early. [WoW Forever DB]"],
  30: ["Beta cap. Check Merchant's Favor Blacksmithing recipes (Crusader's set). [Icy Veins]", "Shockadin (Holy Shock) build becomes possible — not our plan."],
- 40: ["Dual Specialization opens (Blizzard Paladin deep dive). Cost not published. See the Off spec: Prot tab."],
+ 40: ["Dual Specialization opens (Blizzard Paladin deep dive). Cost not published. Add Ret as your second spec (Alt: Ret tab)."],
  60: ["Max level. Endgame gear/talents not published yet."],
 }
 ZONES = [(1,"Northshire / Elwynn Forest"),(10,"Westfall / Loch Modan"),(18,"Redridge Mountains"),(20,"Duskwood / Wetlands"),(25,"Ashenvale / Wetlands"),(30,"Hillsbrad / Alterac & beyond"),(40,"Stranglethorn / Arathi / Desolace"),(45,"Tanaris / Feralas / Hinterlands"),(50,"Un'Goro / Felwood / Searing Gorge"),(55,"Winterspring / Plaguelands")]
@@ -141,15 +134,15 @@ def dcard(d):
 rows = []
 for lv in range(1, 61):
     items = list(MILESTONE.get(lv, []))
-    if lv in TAL:
-        n, r, d = TAL[lv]
+    if lv in TALP:
+        n, r, d = TALP[lv]
         tal = f'<div class="tal"><b>{E(n)}</b> <span class="rank">{r}</span><div class="eff">{E(d)}</div><span class="src">Icy Veins key talent · order: your plan</span></div>'
     elif lv > 30:
         tal = '<div class="tal unk"><b>Talent point</b><div class="eff">31-60 builds not published (beta cap 30). Will fill in at launch.</div><span class="src warn">Unannounced</span></div>'
     else:
         tal = ""
     lis = "".join(f'<li>{E(x)}</li>' for x in items)
-    summ = TAL[lv][0] if lv in TAL else (items[0][:48] + ("…" if items and len(items[0])>48 else "") if items else (f"Trainer: {len(TR[lv])} new" if lv in TR else "No new spells"))
+    summ = TALP[lv][0] if lv in TALP else (items[0][:48] + ("…" if items and len(items[0])>48 else "") if items else (f"Trainer: {len(TR[lv])} new" if lv in TR else "No new spells"))
     rows.append(f'''<div class="row" data-lv="{lv}" id="lv{lv}">
  <div class="row-head"><button class="chk" aria-label="Mark level {lv} done" data-k="lv{lv}"></button>
   <span class="lv">{lv}</span><span class="sum">{'<span class="tb">Trainer</span> ' if lv in TR else ''}{E(summ)}</span><span class="zone">{E(zone(lv))}</span></div>
@@ -165,7 +158,7 @@ talent_list_p = "".join(ck(f"pt{lv}", f"<b>{lv}</b> · {E(n)} {r}") for lv, n, r
 
 PAGE = f'''<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Gordan Silverhand · Ret Paladin</title>
+<title>Gordan Silverhand · Prot Paladin</title>
 <meta name="theme-color" content="#0b1526">
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -174,12 +167,12 @@ PAGE = f'''<!doctype html><html lang="en"><head><meta charset="utf-8">
 <link rel="manifest" href="manifest.webmanifest"><link rel="stylesheet" href="style.css">
 </head><body>
 <header class="bar">
- <div class="bar-top"><div class="who"><span class="crest">{icimg("_human","ci1")}{icimg("_paladin","ci1")}{icimg("_ret","ci1")}</span><b>Gordan Silverhand</b><span>Human Ret Paladin · Lv <span id="curLv">1</span></span></div>
+ <div class="bar-top"><div class="who"><span class="crest">{icimg("_human","ci1")}{icimg("_paladin","ci1")}{icimg("_prot","ci1")}</span><b>Gordan Silverhand</b><span>Human Prot Paladin · Lv <span id="curLv">1</span></span></div>
   <div class="lvpick"><button id="lvDown" aria-label="Level down">−</button><select id="lvSel" aria-label="Current level"></select><button id="lvUp" aria-label="Level up">+</button></div></div>
  <div class="wpn" role="group" aria-label="Weapon"><button data-w="slow">Slow 2H (3.0+)</button><button data-w="fast">Fast weapon</button></div>
  <button id="rotBtn" class="rotbtn" aria-expanded="false">⚔ Rotation <span id="rotTag"></span></button>
  <div id="rot" class="rot" hidden></div>
- <nav class="tabs"><a href="#guide">1-60</a><a href="#bars">Bars</a><a href="#dungeons">Dungeons</a><a href="#ret">Ret</a><a href="#gear">Gear</a><a href="#prof">Profs</a><a href="#back">Break</a><a href="#me">Me</a><a href="#prot">Off spec: Prot</a></nav>
+ <nav class="tabs"><a href="#guide">1-60</a><a href="#bars">Bars</a><a href="#dungeons">Dungeons</a><a href="#prot">Prot (main)</a><a href="#gear">Gear</a><a href="#prof">Profs</a><a href="#back">Break</a><a href="#me">Me</a><a href="#ret">Alt: Ret</a></nav>
 </header>
 <main>
 <section id="t-guide" class="tab"><h2>Leveling 1-60</h2>
@@ -188,7 +181,8 @@ PAGE = f'''<!doctype html><html lang="en"><head><meta charset="utf-8">
  {''.join(rows)}
 </section>
 
-<section id="t-ret" class="tab"><h2>{icimg("_ret","hic")}Retribution</h2>
+<section id="t-ret" class="tab"><h2>{icimg("_ret","hic")}Alt spec: Retribution</h2>
+ <p class="note">Your main spec is Protection. This tab is your Ret dual spec (opens at 40, class trainer in a capital; Blizzard deep dive).</p>
  <div class="card"><h3>Talents to 30</h3>{talent_list}
  <p class="src">Talent names match the Icy Veins "Retribution Focused" build (Benediction, Sanctified Judgement, Pursuit of Justice, Sacred Arbiter, Seal of Command, Vengeance). Icy Veins also highlights <b>Holy Conduit</b> and <b>Improved Judgement</b>, which aren't in this plan. Icy Veins doesn't print a level-by-level order, so double-check it in their calculator. <a href="{IV}">Icy Veins</a></p></div>
  <div class="card"><h3>Rotation</h3><div id="sealAdvice" class="seal"></div><ol>
@@ -256,16 +250,16 @@ PAGE = f'''<!doctype html><html lang="en"><head><meta charset="utf-8">
  <p class="src"><a href="{IV}">Icy Veins Ret</a>, <a href="{IVP}">Icy Veins Prot</a></p></div>
 </section>
 
-<section id="t-prot" class="tab"><h2>{icimg("_prot","hic")}Off spec: Protection</h2>
- <p class="note">Your main spec is Retribution. This tab is for a Prot swap.</p>
+<section id="t-prot" class="tab"><h2>{icimg("_prot","hic")}Main spec: Protection</h2>
+ <p class="note">Protection is your main spec. The 1-60 rows follow the order below. Heads-up: WoW Forever DB says Prot levels slower solo than Ret (flat Holy damage) but can pull whole packs; 31-60 is untested theory.</p>
  <div class="card"><h3>Dual spec</h3><p><b>Level 40</b>, from a class trainer in a capital city (Blizzard's Paladin deep dive). Price isn't published. That's how you'd add Prot as a second spec.</p></div>
  <div class="card"><h3>Talents to 30</h3>
   <p><b>Protection (21 points)</b></p>
   <ul>
    <li>Redoubt 5/5</li><li>Precision 3/3</li><li>Anticipation 2/5</li><li>Improved Seal of Fury 1/1</li><li>Shield Specialization 3/3</li><li>Improved Righteous Fury 2/3</li><li>Swift Judgement 1/1</li><li>One-Handed Weapon Specialization 3/3</li><li>Templar's Bulwark 1/1</li></ul>
   <p><b>Holy:</b> none. <b>Retribution:</b> none.</p>
-  <p class="src">Consecration is a trainer spell at 20 now, so you don't need Holy talents. Levels 10-30 only; the beta stops at 30. <a href="https://classicwowforever.com/class-guides/paladin/protection/">classicwowforever</a> (Oct 14) and <a href="https://mobalytics.gg/wow-forever/classes/protection-paladin-guide">Mobalytics</a> (Oct 15) give this exact order. Both were written before the Oct 15 build.</p>
-  <h3 style="margin-top:12px">Order by level</h3>{talent_list_p}
+  <p class="src">This is the 0/21/0 dungeon-tank build at 30 (faster to Templar's Bulwark than the 1-60 leveling order). Consecration is a trainer spell at 20 now, so you don't need Holy talents. Levels 10-30 only; the beta stops at 30. <a href="https://classicwowforever.com/class-guides/paladin/protection/">classicwowforever</a> (Oct 14) and <a href="https://mobalytics.gg/wow-forever/classes/protection-paladin-guide">Mobalytics</a> (Oct 15) give this exact order. Both were written before the Oct 15 build.</p>
+  <h3 style="margin-top:12px">1-60 leveling order (WoW Forever DB)</h3>{talent_list_p}<p class="src">Order: <a href="https://wowfdb.com/classes/paladin/protection/leveling/">WoW Forever DB Prot leveling</a> (Ret talents early for mana and run speed, Prot from 22, tank-only talents last). Levels 31-60 untested; beta cap is 30. Alt: <a href="https://www.icy-veins.com/wow-forever/protection-paladin-leveling">Icy Veins Prot leveling</a> paths through Ret early too.</p>
   <details><summary>Where sources differ, and after 30 (unconfirmed)</summary>
    <ul>
     <li><a href="https://topbuilds.gg/wow-forever/paladin/protection/">TopBuilds</a> (Oct 9) takes Shield Specialization at 20 and Improved Seal of Fury at 26, and has no Templar's Bulwark.</li>
